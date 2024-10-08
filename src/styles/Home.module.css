@@ -141,3 +141,33 @@
     gap: 40px 20px;
   }
 }
+
+/* Game Page */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 38px;
+  margin: 66px;
+  font: 500 22px/41px Rubik, -apple-system, Roboto, Helvetica, sans-serif;
+}
+.pageButton {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.pageButton.active {
+  background-color: rgba(255, 252, 252, 0.32);
+  border-radius: 10px;
+}
+
+@media (max-width: 991px) {
+  .pagination {
+    margin-top: 40px;
+    gap: 20px;
+  }
+}

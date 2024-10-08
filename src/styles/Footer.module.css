@@ -1,0 +1,129 @@
+.footer {
+    background-color: #070707;
+    color: #fff;
+    padding: 27px 0;
+    font-family: Poppins, sans-serif;
+  }
+  
+  .footerContent {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1219px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .footerSection {
+    max-width: 300px;
+  }
+  
+  .footerLogo {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 2;
+  }
+  
+  .footerDescription {
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  
+  .footerCopyright {
+    margin-top: 42px;
+    font-size: 16px;
+  }
+  
+  .footerNav {
+    margin: auto 0;
+  }
+  
+  .footerNavTitle {
+    font-size: 17px;
+    font-weight: 500;
+  }
+  
+  .footerNavList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+  }
+  
+  .footerNavList li {
+    margin-bottom: 10px;
+  }
+  
+  .footerNavList a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .footerContact {
+    max-width: 300px;
+  }
+  
+  .footerContactTitle {
+    font-size: 17px;
+    font-weight: 500;
+  }
+  
+  .footerContactDescription {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .footerContactInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+  }
+  
+  .footerPhone {
+    font-size: 16px;
+  }
+  
+  .footerSocialIcons {
+    width: 184px;
+    max-width: 100%;
+  }
+  
+  .footerDivider {
+    border-top: 1px solid #d2d2d2;
+    margin: 62px 0 29px;
+  }
+  
+  .footerLegal {
+    text-align: center;
+    font-size: 13px;
+    line-height: 25px;
+  }
+  
+  @media (max-width: 991px) {
+    .footerContent {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .footerSection,
+    .footerNav,
+    .footerContact {
+      width: 100%;
+      max-width: none;
+    }
+  
+    .footerCopyright {
+      margin-top: 20px;
+    }
+  
+    .footerContactInfo {
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .footerDivider {
+      margin: 40px 0 20px;
+    }
+  }

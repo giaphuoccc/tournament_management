@@ -1,21 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Navbar from './Components/Navbar'
+import styles from './styles/Home.module.css';
+
 import Home from './Components/User/Home'
-import Footer from './Components/Footer'
 import About from './Components/User/About';
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
 
 const App = () => {
   return (
     <Router>
-      <div>
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
+      <div className={styles.homePage}>
+        <Navbar/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        <Footer/>
       </div>
     </Router>
   );

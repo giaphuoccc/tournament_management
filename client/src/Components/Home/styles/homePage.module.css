@@ -1,0 +1,47 @@
+/* Home Page */
+.homePage {
+  font-family: Poppins, sans-serif;
+  color: #fff;
+  background: linear-gradient(
+    to bottom,
+    #3165cb,
+    #030115
+  ); /* Thêm gradient cho màu nền */
+}
+
+.mainContent {
+  padding: 0 80px;
+}
+
+.trendingGamesSection {
+  margin-top: 74px;
+}
+
+.sectionTitle {
+  font: 700 31px/58px Rubik, -apple-system, Roboto, Helvetica, sans-serif;
+  text-align: center;
+  padding: 10px;
+}
+
+.featuredBanner {
+  width: 100%;
+  border-radius: 5px;
+  margin: 66px;
+  aspect-ratio: 1.97;
+  object-fit: contain;
+}
+
+@media (max-width: 991px) {
+  .mainContent {
+    padding: 0 20px;
+  }
+
+  .trendingGamesSection {
+    margin-top: 40px;
+  }
+
+  .featuredBanner {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+}

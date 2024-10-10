@@ -1,0 +1,22 @@
+.gameCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  min-width: 240px;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.gameImage {
+  width: 100%;
+  aspect-ratio: 0.83;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.gameName {
+  margin-top: 8px;
+  font: 500 22px/41px Rubik, -apple-system, Roboto, Helvetica, sans-serif;
+  color: #fff;
+}

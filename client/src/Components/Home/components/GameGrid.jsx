@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from '../../styles/Home.module.css';
+import GameCard from "./GameCard";
+import styles from "../styles/GameGrid.module.css";
 
 const gameData = [
   {
@@ -76,83 +76,14 @@ const gameData = [
   },
 ];
 
-const GameCard = ({ name, image }) => {
+const GameGrid = () => {
   return (
-    <div className={styles.gameCard}>
-      <img src={image} alt={`${name} cover`} className={styles.gameImage} />
-      <h3 className={styles.gameName}>{name}</h3>
+    <div className={styles.gameGrid}>
+      {gameData.map((game) => (
+        <GameCard key={game.id} name={game.name} image={game.image} />
+      ))}
     </div>
   );
 };
 
-const Home = () => {
-  return (
-    
-    <main className={styles.mainContent}>
-      {/* FilterBar */}
-      <div className={styles.filterBar}>
-        <div className={styles.filterDropdown}>
-          <button className={styles.dropdownToggle}>
-            All games
-            <span className={styles.dropdownArrow}>V</span>
-          </button>
-        </div>
-        <div className={styles.filterDropdown}>
-          <button className={styles.dropdownToggle}>
-            All Platforms
-            <span className={styles.dropdownArrow}>V</span>
-          </button>
-        </div>
-        <div className={styles.filterDropdown}>
-          <button className={styles.dropdownToggle}>
-            Search a tournament
-            <span className={styles.dropdownArrow}>V</span>
-          </button>
-        </div>
-        <button className={styles.filterButton}>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/052e3d9cc73e88b9c5618b605dae7fa2262a52e976e81cbe68c5dbb8e7cad7d7?placeholderIfAbsent=true&apiKey=69cce3e37c2b45db9f522a94a61877ff"
-            alt="Filter"
-            className={styles.filterIcon}
-          />
-        </button>
-      </div>
-      {/* FilterBar */}
-
-      {/* Body */}
-      <section className={styles.trendingGamesSection}>
-        <h2 className={styles.sectionTitle}>Currently Trending Games</h2>
-          {/* ListGame */}
-          <div className={styles.gameGrid}>
-            {gameData.map((game) => (
-              <GameCard key={game.id} name={game.name} image={game.image} />
-            ))}
-          </div>  
-          {/* ListGame */}
-
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/fe64eb08c7d75f5a07c3d524d832aebfee929f72d4f77f3753c2600d4884e439?placeholderIfAbsent=true&apiKey=69cce3e37c2b45db9f522a94a61877ff"
-            alt="Featured game banner"
-            className={styles.featuredBanner}
-          />
-      </section>
-
-      <nav className={styles.pagination} aria-label="Page navigation">
-        <button className={styles.pageButton} aria-label="Previous page">
-          &lt;
-        </button>
-        <button className={`${styles.pageButton} ${styles.active}`}>1</button>
-        <button className={styles.pageButton}>2</button>
-        <button className={styles.pageButton}>3</button>
-        <button className={styles.pageButton}>4</button>
-        <button className={styles.pageButton}>5</button>
-        <button className={styles.pageButton} aria-label="Next page">
-          &gt;
-        </button>
-      </nav>
-      {/* Body */}
-    </main>
-  )
-}
-
-export default Home
+export default GameGrid;

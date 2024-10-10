@@ -1,0 +1,56 @@
+.filterBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 26px;
+  margin: 55px 95px 0 0;
+  flex-wrap: wrap;
+}
+
+.filterDropdown {
+  background-color: rgba(198, 196, 196, 0.25);
+  border-radius: 15px;
+  padding: 0 7px;
+  height: 29px;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownToggle {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.dropdownArrow {
+  font-size: 10px;
+}
+
+.filterButton {
+  background-color: rgba(64, 72, 89, 0.6);
+  border: none;
+  border-radius: 15px;
+  width: 42px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.filterIcon {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 991px) {
+  .filterBar {
+    margin: 40px 10px 0 0;
+  }
+}

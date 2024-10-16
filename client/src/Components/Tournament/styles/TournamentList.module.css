@@ -1,0 +1,36 @@
+.tournamentList {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 22px;
+}
+
+.paginationButton {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.paginationButton.active {
+  background-color: rgba(255, 252, 252, 0.32);
+  border-radius: 10px;
+}
+
+@media (max-width: 991px) {
+  .tournamentList {
+    gap: 20px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,66 @@
+.tournamentCard {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.tournamentLogo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.tournamentInfo {
+  flex-grow: 1;
+}
+
+.tournamentTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.tournamentOrganizer {
+  font-size: 14px;
+  line-height: 2;
+  margin: 0;
+}
+
+.tournamentDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.tournamentDate,
+.tournamentLocation,
+.tournamentTeams,
+.tournamentStatus {
+  font-size: 14px;
+  line-height: 26px;
+  margin: 0;
+}
+
+.tournamentStatus.registrationopen {
+  color: #4defa6;
+}
+
+.tournamentStatus.registrationclosed {
+  color: #fa9021;
+}
+
+@media (max-width: 991px) {
+  .tournamentCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .tournamentDetails {
+    align-items: flex-start;
+    width: 100%;
+  }
+}

@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+const { Schema, model } = mongoose;
 
 const tournamentSchema = new mongoose.Schema({
     name: {
@@ -40,5 +41,5 @@ const tournamentSchema = new mongoose.Schema({
     timestamps: true // Tự động thêm 'createdAt' và 'updatedAt'
 });
 
-const tournamentModel = mongoose.model("Tournament", tournamentSchema)
-module.exports = tournamentModel
+const TournamentList = mongoose.model("TournamentList", tournamentSchema);
+export default TournamentList;

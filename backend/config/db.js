@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Tournament from '../model/tournamentModel.js';
+import Game from "../model/gameListModel.js"
 
 export const connectDB = async () => {
     try {
@@ -13,4 +14,3 @@ export const connectDB = async () => {
         process.exit(1);
     }
 };
-

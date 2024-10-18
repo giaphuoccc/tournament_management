@@ -7,11 +7,6 @@ const tournamentSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    game: {
-        type: Schema.Types.ObjectId,
-        ref: 'GameList',
-        required: true
-    },
     organizer: {
         type: String,
         required: true
@@ -36,7 +31,10 @@ const tournamentSchema = new mongoose.Schema({
     },
     image: {
         type: String
-    }
+    },
+    game: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "GameList"}
+    ]
 }, {
     timestamps: true // Tự động thêm 'createdAt' và 'updatedAt'
 });

@@ -13,7 +13,7 @@ dotenv.config();
 connectDB();
 
 //Routes
-app.use('/client/danh-sach-giai-dau', tournamentRoutes)
+app.use('/client/tournament', tournamentRoutes);
 
 
 const PORT = process.env.PORT || 5000; // Lấy cổng từ biến môi trường hoặc mặc định là 3000

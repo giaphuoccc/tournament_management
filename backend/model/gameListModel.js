@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const gameListSchema = new mongoose.Schema({
     name: {
@@ -9,8 +9,11 @@ const gameListSchema = new mongoose.Schema({
     image: {
         type: String,
         required: true
-    }
+    },
+    tournaments: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "TournamentList" }
+    ]
 });
 
-const gameListModel = mongoose.model("GameList", gameListSchema);
-module.exports = gameListModel;
+const gameList = mongoose.model("GameList", gameListSchema);
+export default gameList;

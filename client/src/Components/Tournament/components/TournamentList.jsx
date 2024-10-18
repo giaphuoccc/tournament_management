@@ -2,6 +2,16 @@
 import TournamentCard from "./TournamentCard";
 import styles from "../styles/TournamentList.module.css";
 
+// const tournamentData = async () => {
+//   try {
+//     const response = await fetch(`localhost:3000/client/tournament/getAllTournaments`);
+//     const data = await response.json();
+//     console.log(data)
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 const tournamentData = [
   {
     id: 1,

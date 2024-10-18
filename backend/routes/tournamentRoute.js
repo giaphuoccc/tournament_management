@@ -1,9 +1,9 @@
 import express from 'express'
 const router = express.Router();
 
-import { getAllTournament } from "../controllers/tournamentController.js";
+import { getAllTournaments } from "../controllers/tournamentController.js";
 
 //lay danh sach giai dau
-router.get('/tournaments', getAllTournament);
+router.get('/getAllTournaments', getAllTournaments);
 
 export default router;

@@ -1,6 +1,6 @@
 import Tournaments from "../model/tournamentModel.js"; 
 
-export const getAllTournament = async (req, res) => {
+export const getAllTournaments = async (req, res) => {
     try {
         //Lấy danh sách tất cả giải đấu từ db
         const tournaments = await Tournaments.find();

@@ -44,11 +44,11 @@
   margin: 0;
 }
 
-.tournamentStatus.registrationopen {
+.tournamentStatus.open {
   color: #4defa6;
 }
 
-.tournamentStatus.registrationclosed {
+.tournamentStatus.closed {
   color: #fa9021;
 }
 

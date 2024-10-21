@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-const { Schema, model } = mongoose;
 
 const tournamentSchema = new mongoose.Schema({
     name: {
@@ -11,12 +10,12 @@ const tournamentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    status: {
+    regStatus: {
         type: String,
-        enum: ['open', 'closed', 'completed'],
+        enum: ['open', 'closed'],
         required: true
     },
-    teamSize: {
+    tournamentSize: {
         type: Number,
         required: true,
         min: 2 // least
@@ -25,16 +24,21 @@ const tournamentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    time: {
+    timeStarted: {
+        type: Date,
+        required: true
+    },
+    timeEnded: {
         type: Date,
         required: true
     },
     image: {
         type: String
     },
-    game: [
-        { type: mongoose.Schema.Types.ObjectId, ref: "GameList"}
-    ]
+    game: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "GameList"
+    }
 }, {
     timestamps: true // Tự động thêm 'createdAt' và 'updatedAt'
 });

@@ -1,8 +1,10 @@
-//import React from "react";
+import { useState } from "react";
 import TournamentList from "./components/TournamentList";
 import styles from "./styles/TournamentPage.module.css";
 
 const TournamentPage = () => {
+  const [selectedTab, setSelectedTab] = useState('Ongoing');
+
   return (
     <div className={styles.tournamentPage}>
       <main className={styles.mainContent}>
@@ -22,15 +24,22 @@ const TournamentPage = () => {
           <h1 className={styles.sectionTitle}>TOURNAMENTS</h1>
           <nav className={styles.tournamentNav}>
             <ul className={styles.navList}>
-              <li>Past</li>
-              <li className={styles.active}>
-                Ongoing
-                <div className={styles.activeIndicator} />
-              </li>
-              <li>Upcoming</li>
-            </ul>
+                {['Past', 'Ongoing', 'Upcoming'].map((tab) => (
+                  <li 
+                    key={tab}
+                    role="button"
+                    tabIndex={0} 
+                    onClick={() => setSelectedTab(tab)} 
+                    onKeyPress={(e) => e.key === 'Enter' && setSelectedTab(tab)}
+                    className={selectedTab === tab ? styles.active : ''}
+                  >
+                    {tab}
+                    {selectedTab === tab && <div className={styles.activeIndicator} />}
+                  </li>
+                ))}
+              </ul>
           </nav>
-          <TournamentList />
+          <TournamentList tournamentStatus={selectedTab} />
         </section>
       </main>
     </div>

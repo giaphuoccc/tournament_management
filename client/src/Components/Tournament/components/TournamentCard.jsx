@@ -1,39 +1,48 @@
 //import React from "react";
 import styles from "../styles/TournamentCard.module.css";
+import {format} from 'date-fns'
 
 const TournamentCard = ({
-  image,
-  title,
+  name,
   organizer,
-  date,
+  regStatus,
+  tournamentSize,
   location,
-  teams,
-  status,
+  timeStarted,
+  timeEnded,
+  image,
 }) => {
+  
+  // Format the dates using date-fns
+  const formattedTimeStarted = format(new Date(timeStarted), 'MMMM d, yyyy');
+  const formattedTimeEnded = format(new Date(timeEnded), 'MMMM d, yyyy');
+  
+  const formattedDateRange = `${formattedTimeStarted} - ${formattedTimeEnded}`;
+
   return (
     <article className={styles.tournamentCard}>
       <img
         src={image}
-        alt={`${title} logo`}
+        alt={`${name} logo`}
         className={styles.tournamentLogo}
       />
       <div className={styles.tournamentInfo}>
-        <h2 className={styles.tournamentTitle}>{title}</h2>
+        <h2 className={styles.tournamentTitle}>{name}</h2>
         <p className={styles.tournamentOrganizer}>
           League Of Legends(PC) - By {organizer}
         </p>
       </div>
       <div className={styles.tournamentDetails}>
-        <p className={styles.tournamentDate}>{date}</p>
+        <p className={styles.tournamentDate}>{formattedDateRange}</p>
         <p className={styles.tournamentLocation}>{location}</p>
-        <p className={styles.tournamentTeams}>{teams} Teams</p>
-        {status && (
+        <p className={styles.tournamentTeams}>{tournamentSize} Teams</p>
+        {regStatus && (
           <p
             className={`${styles.tournamentStatus} ${
-              styles[status.toLowerCase().replace(" ", "")]
+              styles[regStatus.toLowerCase().replace(" ", "")]
             }`}
           >
-            {status}
+            {regStatus}
           </p>
         )}
       </div>

@@ -1,0 +1,117 @@
+/* CreateTournament.css */
+
+.create-tournament {
+  padding: 20px;
+  background-color: #f4f4f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.form-container label {
+  font-size: 1rem;
+  margin-top: 15px;
+  display: block;
+  color: #333;
+}
+
+.form-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.discipline-grid {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.discipline-item {
+  padding: 15px;
+  margin: 5px;
+  background-color: #eee;
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: center;
+  flex: 1 1 100px;
+  border: 2px solid transparent; /* Add transparent border */
+}
+
+.discipline-item.selected {
+  border-color: #007bff; /* Only change the border color on selection */
+}
+.platform-grid {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.platform-item {
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  flex: 1 1 100px;
+  border: 2px solid transparent; /* Add transparent border */
+}
+
+.platform-item.selected {
+  border-color: #007bff; /* Only change the border color on selection */
+}
+
+.participants_container {
+  display: flex;
+  align-items: center; /* Vertically center align items */
+  gap: 20px; /* Add space between participants_input and participant-options */
+}
+
+.participants_input {
+  width: 60px; /* Adjust as needed */
+  height: 30px; /* Adjust as needed */
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.participant-options {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 13px;
+}
+
+.participant-options label {
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.create-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+}

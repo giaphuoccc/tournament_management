@@ -31,6 +31,14 @@
   border-radius: 5px;
 }
 
+.form-container input[type="datetime-local"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
 .discipline-grid {
   display: flex;
   gap: 10px;
@@ -105,8 +113,8 @@ select {
   border-radius: 5px;
 }
 
-.create-button {
-  background-color: #28a745;
+.next-button {
+  background-color: #2835a7;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -114,4 +122,38 @@ select {
   cursor: pointer;
   font-size: 1rem;
   margin-top: 20px;
+  margin-left: 10px;
+}
+
+.back-button {
+  background-color: #7e82a4;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+.create-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.review-info-container {
+  width: 500px;
+  margin-top: 10px;
+}
+
+.review-info-container ul {
+  margin-left: 30px;
+  margin-top: 10px;
 }

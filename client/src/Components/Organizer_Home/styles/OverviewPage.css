@@ -1,0 +1,185 @@
+/* General page styling */
+.overview-page {
+  padding: 20px;
+  background-color: #f4f4f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.overview-page h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Container for all the cards */
+.overview-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Individual Card Styling */
+.main-card,
+.participants-card,
+.structure-card,
+.registrations-card {
+  grid-column: span 1; /* Each card occupies one column */
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Responsive layout for screens 768px and below */
+@media (max-width: 1000px) {
+  .overview-container {
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 15px;
+  }
+
+  .main-card,
+  .participants-card,
+  .structure-card,
+  .registrations-card {
+    grid-column: span 1; /* Each card occupies the full width */
+  }
+}
+
+/* Main Card styling */
+.main-card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-card h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.main-card p {
+  color: #666;
+}
+
+.status-tabs {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.status {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.status.active {
+  color: #007bff;
+  font-weight: bold;
+  border-bottom: 2px solid #007bff;
+}
+
+.status-message {
+  color: #555;
+}
+
+.draft-button {
+  background-color: orange;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* General card styling */
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.add-link,
+.configure-checkin,
+.view-stages-link,
+.create-stage-link {
+  color: #007bff;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.create-stage-link {
+  color: green;
+}
+
+.count {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.count span {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.registration-status {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.registration-status span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.status-text {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.status-text.accepted {
+  color: green;
+}
+
+.status-text.refused,
+.status-text.cancelled {
+  color: #999;
+}
+
+.no-registrations {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.public-page-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  align-self: flex-end;
+}

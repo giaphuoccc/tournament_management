@@ -2,6 +2,7 @@ import TournamentCard from "./TournamentCard";
 
 import {useState, useEffect} from "react";
 import { useParams } from "react-router-dom"
+import Alert from '@mui/material/Alert';
 
 import styles from "../styles/TournamentList.module.css";
 
@@ -37,12 +38,17 @@ const TournamentList = ({ tournamentStatus }) => {
     }
 
     if (error) {
-      return <div>{error}</div>;
+      return (
+        <div>
+          <Alert variant="outlined" severity="error">
+            This is an outlined error Alert.
+          </Alert>
+        </div>
+      );
     }
 
     //Date today
     const currentDate = new Date();
-    console.log("HElloworld", currentDate)
     
     // Filter tournaments based on status
     const filteredTournaments = tournamentData.filter(tournament => {

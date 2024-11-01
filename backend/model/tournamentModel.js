@@ -16,9 +16,9 @@ const tournamentSchema = new mongoose.Schema({
         required: true
     },
     tournamentSize: {
-        type: Number,
-        required: true,
-        min: 2 // least
+        type: String,
+        enum: ['8', '16'], // 8 or 16 members only 
+        required: true
     },
     location: {
         type: String,

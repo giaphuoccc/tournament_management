@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/CreateTournament.css";
+import location from "../data/LocationData";
 
 const CreateTournament = () => {
   const [step, setStep] = useState(1);
@@ -13,34 +14,20 @@ const CreateTournament = () => {
     timeStarted: "",
     timeEnded: "",
     location: "",
+    description: "",
+    rules: "",
   });
 
-  const countryOptions = [
-    { name: "Afghanistan", code: "AF" },
-    { name: "Åland Islands", code: "AX" },
-    { name: "Albania", code: "AL" },
-    { name: "Algeria", code: "DZ" },
-    { name: "American Samoa", code: "AS" },
-    // Add more countries as needed
-  ];
   const disciplines = [
-    "FC24",
     "League of Legends",
+    "FC24",
     "Mobile Legends",
     "Valorant",
     "eFootball",
     "Rocket League",
   ];
 
-  const platformOptions = [
-    "PC",
-    "Playstation 4",
-    "Playstation 5",
-    "Xbox One",
-    "Xbox Series",
-    "Switch",
-    "Mobile",
-  ];
+  const participants = ["8 Teams", "16 Teams"];
 
   // Handle input changes
   const handleChange = (e) => {
@@ -49,14 +36,14 @@ const CreateTournament = () => {
     console.log(formData.timeStarted);
   };
 
-  const handlePlatformSelect = (platform) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      platforms: prevData.platforms.includes(platform)
-        ? prevData.platforms.filter((p) => p !== platform)
-        : [...prevData.platforms, platform],
-    }));
-  };
+  // const handlePlatformSelect = (platform) => {
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     platforms: prevData.platforms.includes(platform)
+  //       ? prevData.platforms.filter((p) => p !== platform)
+  //       : [...prevData.platforms, platform],
+  //   }));
+  // };
 
   // Step navigation
   const nextStep = () => {
@@ -74,12 +61,8 @@ const CreateTournament = () => {
 
     if (step === 2) {
       // Check if tournamentName and discipline are not empty
-      if (formData.platforms.length == 0) {
+      if (formData.participant.length == 0) {
         alert("Please select a platform to proceed.");
-        return;
-      }
-      if (formData.participant <= 0) {
-        alert("Please enter number of partiipant greater than 1 to proceed.");
         return;
       }
     }
@@ -97,6 +80,21 @@ const CreateTournament = () => {
       if (!formData.location.trim()) {
         alert("End h");
         return; // Prevent moving to submission if the dates are invalid
+      }
+    }
+
+    if (step === 4) {
+      // Check if endTime is before startTime
+      const startTime = new Date(formData.timeStarted);
+      const endTime = new Date(formData.timeEnded);
+
+      if (!formData.description.trim()) {
+        alert("Please enter a description to proceed.");
+        return;
+      }
+      if (!formData.rules.trim()) {
+        alert("Please select a rules to proceed.");
+        return;
       }
     }
 
@@ -149,23 +147,25 @@ const CreateTournament = () => {
 
         {step === 2 && (
           <div className="form-container">
-            <h2>Step 2: Platforms & Participants</h2>
-            <label>Platform(s)</label>
-            <div className="platform-grid">
-              {platformOptions.map((platform, index) => (
+            <h2>Step 2: Participants</h2>
+            <label>Number of team (s)</label>
+            <div className="participant-grid">
+              {participants.map((participant, index) => (
                 <div
                   key={index}
-                  className={`platform-item ${
-                    formData.platforms.includes(platform) ? "selected" : ""
+                  className={`participant-item ${
+                    formData.participant === participant ? "selected" : ""
                   }`}
-                  onClick={() => handlePlatformSelect(platform)}
+                  onClick={() =>
+                    setFormData({ ...formData, participant: participant })
+                  }
                 >
-                  {platform}
+                  {participant}
                 </div>
               ))}
             </div>
 
-            <label>Number of Participants</label>
+            {/* <label>Number of Participants</label>
             <input
               type="number"
               name="participant"
@@ -196,7 +196,7 @@ const CreateTournament = () => {
                 />
                 Teams
               </label>
-            </div>
+            </div> */}
 
             <div className="button-group">
               <button className="back-button" type="button" onClick={prevStep}>
@@ -213,7 +213,7 @@ const CreateTournament = () => {
           <div className="form-container">
             <h2>Step 3: Time & Location</h2>
 
-            <label>Time</label>
+            <label>Timezone</label>
             <select
               name="timezone"
               value={formData.timezone}
@@ -228,6 +228,7 @@ const CreateTournament = () => {
               {/* Add more timezone options as needed */}
             </select>
 
+            <label>Start Time</label>
             <input
               type="datetime-local"
               name="timeStarted"
@@ -236,6 +237,7 @@ const CreateTournament = () => {
               onChange={handleChange}
             />
 
+            <label>End Time</label>
             <input
               type="datetime-local"
               name="timeEnded"
@@ -252,7 +254,7 @@ const CreateTournament = () => {
               onChange={handleChange}
             >
               <option value="">Select a country</option>
-              {countryOptions.map((country) => (
+              {location.map((country) => (
                 <option key={country.code} value={country.code}>
                   {country.name}
                 </option>
@@ -287,12 +289,8 @@ const CreateTournament = () => {
               <button className="back-button" type="button" onClick={prevStep}>
                 Back
               </button>
-              <button
-                className="create-button"
-                type="submit"
-                onClick={nextStep}
-              >
-                Create Tournament
+              <button className="next-button" type="button" onClick={nextStep}>
+                Next
               </button>
             </div>
           </div>
@@ -300,7 +298,80 @@ const CreateTournament = () => {
 
         {step === 4 && (
           <div className="form-container">
-            <h2>Step 1: Basic Info</h2>
+            <h2>Step 4: Tournament Description & Rules</h2>
+            <label>Description</label>
+            <textarea
+              rows={5} // Specifies the number of visible text lines
+              cols={30} // Specifies the width of the textarea in characters
+              value={formData.description}
+              placeholder="Add your text" // Specifies a short hint that describes the expected value of the textarea
+              wrap="soft" // Specifies how the text in the textarea should be wrapped
+              readOnly={false} // Specifies that the textarea is read-only, meaning the user cannot modify its content
+              name="description" // Specifies the name of the textarea, which can be used when submitting a form
+              disabled={false} //  Specifies that the textarea is disabled, meaning the user cannot interact with it
+              onChange={handleChange}
+            />
+
+            <label>Rules</label>
+            <textarea
+              rows={5} // Specifies the number of visible text lines
+              cols={30} // Specifies the width of the textarea in characters
+              value={formData.rules}
+              placeholder="Add your text" // Specifies a short hint that describes the expected value of the textarea
+              wrap="soft" // Specifies how the text in the textarea should be wrapped
+              readOnly={false} // Specifies that the textarea is read-only, meaning the user cannot modify its content
+              name="rules" // Specifies the name of the textarea, which can be used when submitting a form
+              disabled={false} //  Specifies that the textarea is disabled, meaning the user cannot interact with it
+              onChange={handleChange}
+            />
+
+            <button className="back-button" type="button" onClick={prevStep}>
+              Back
+            </button>
+            <button className="next-button" type="button" onClick={nextStep}>
+              Next
+            </button>
+          </div>
+        )}
+
+        {step === 5 && (
+          <div className="form-container">
+            <h2>Step 5: Review Information</h2>
+            <label>Description</label>
+
+            <div className="review-info-container">
+              <h3>Review Information</h3>
+              <ul>
+                <li>
+                  <strong>Tournament Name:</strong> {formData.tournamentName}
+                </li>
+                <li>
+                  <strong>Discipline:</strong> {formData.discipline}
+                </li>
+                <li>
+                  <strong>Participants:</strong> {formData.participant}
+                </li>
+                <li>
+                  <strong>Timezone:</strong> {formData.timezone}
+                </li>
+                <li>
+                  <strong>Start Date:</strong> {formData.timeStarted}
+                </li>
+                <li>
+                  <strong>End Date:</strong> {formData.timeEnded}
+                </li>
+                <li>
+                  <strong>Location:</strong> {formData.location}
+                </li>
+                <li>
+                  <strong>Description:</strong> {formData.description}
+                </li>
+                <li>
+                  <strong>Rules:</strong> {formData.rules}
+                </li>
+              </ul>
+            </div>
+
             <button className="back-button" type="button" onClick={prevStep}>
               Back
             </button>

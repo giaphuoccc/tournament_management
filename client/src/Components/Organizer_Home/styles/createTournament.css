@@ -16,6 +16,14 @@
   width: 100%;
 }
 
+.form-container textarea {
+  width: 100%; /* Make textarea take up the full width of the container */
+  padding: 10px;
+  resize: vertical; /* Allow vertical resizing, or set to "none" to disable */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  border-radius: 10px;
+}
+
 .form-container label {
   font-size: 1rem;
   margin-top: 15px;
@@ -28,7 +36,7 @@
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .form-container input[type="datetime-local"] {
@@ -36,7 +44,15 @@
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
+}
+
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .discipline-grid {
@@ -60,14 +76,15 @@
 .discipline-item.selected {
   border-color: #007bff; /* Only change the border color on selection */
 }
-.platform-grid {
+.participant-grid {
   display: flex;
   gap: 10px;
   margin-top: 10px;
   flex-wrap: wrap;
+  height: 200px;
 }
 
-.platform-item {
+.participant-item {
   padding: 10px;
   background-color: #eee;
   border-radius: 5px;
@@ -75,35 +92,42 @@
   text-align: center;
   flex: 1 1 100px;
   border: 2px solid transparent; /* Add transparent border */
+  width: 200px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
-.platform-item.selected {
+.participant-item.selected {
   border-color: #007bff; /* Only change the border color on selection */
 }
 
-.participants_container {
+/* .participants_container {
   display: flex;
-  align-items: center; /* Vertically center align items */
-  gap: 20px; /* Add space between participants_input and participant-options */
-}
+  align-items: center; /* Vertically center align items 
+  gap: 20px; /* Add space between participants_input and participant-options 
+} */
 
-.participants_input {
-  width: 60px; /* Adjust as needed */
-  height: 30px; /* Adjust as needed */
+/* .participants_input {
+  width: 60px; /* Adjust as needed 
+  height: 30px; /* Adjust as needed 
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #ddd;
-}
+} */
 
-.participant-options {
+/* .participant-options {
   display: flex;
   gap: 20px;
   margin-bottom: 13px;
-}
+} */
 
-.participant-options label {
+/* .participant-options label {
   cursor: pointer;
-}
+} */
 
 select {
   width: 100%;
@@ -118,7 +142,7 @@ select {
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 20px;
@@ -130,7 +154,7 @@ select {
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 20px;

@@ -1,5 +1,6 @@
 //import React from 'react'
 import styles from './styles/homePage.module.css';
+
 import Pagination from './components/Pagination';
 import GameGrid from './components/GameGrid';
 import FilterBar from './components/FilterBar';

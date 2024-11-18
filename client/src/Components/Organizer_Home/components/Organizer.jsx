@@ -14,7 +14,7 @@ export default function Organizer() {
   );
 }
 
-export function OverviewConplete() {
+export function OrganizerOverview() {
   return (
     <div className="app">
       <Sidebar />

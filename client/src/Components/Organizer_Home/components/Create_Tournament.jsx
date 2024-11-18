@@ -1,59 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/CreateTournament.css";
 import location from "../data/LocationData";
+import axios from "axios";
 
 const CreateTournament = () => {
+  const [gameData, setGameData] = useState([]);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    tournamentName: "",
-    participant: "",
-    discipline: "",
-    platforms: [],
-    participantType: "Players",
-    timezone: "(UTC+7:00) - Hanoi - Vietnam",
-    timeStarted: "",
-    timeEnded: "",
-    location: "",
-    description: "",
-    rules: "",
+    name: "", // Matches 'name' field in schema (required)
+    organizer: "Tuo", // Matches 'organizer' field in schema (required)
+    regStatus: "open", // Matches 'regStatus', defaulting to 'open' (required, with enum value)
+    tournamentSize: "", // Matches 'tournamentSize' field (required, with enum value: "8" or "16")
+    location: "", // Matches 'location' field in schema (required)
+    timeStarted: "", // Matches 'timeStarted' field in schema (required)
+    timeEnded: "", // Matches 'timeEnded' field in schema (required)
+    image: "", // Matches 'image' field in schema (optional)
+    gameId: "", // Matches 'game' field in schema, expects ObjectId reference (optional)
   });
 
-  const disciplines = [
-    "League of Legends",
-    "FC24",
-    "Mobile Legends",
-    "Valorant",
-    "eFootball",
-    "Rocket League",
-  ];
+  const tournamentSize = ["8", "16"];
 
-  const participants = ["8 Teams", "16 Teams"];
+  const fetchGameData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/client/game/getAllGame`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setGameData(data); // Set fetched data to state
+    } catch (error) {
+      console.error("Error fetching game data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGameData(); // Fetch game data on component mount
+  }, []);
 
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    console.log(formData.timeStarted);
   };
 
-  // const handlePlatformSelect = (platform) => {
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     platforms: prevData.platforms.includes(platform)
-  //       ? prevData.platforms.filter((p) => p !== platform)
-  //       : [...prevData.platforms, platform],
-  //   }));
-  // };
-
-  // Step navigation
   const nextStep = () => {
     if (step === 1) {
       // Check if tournamentName and discipline are not empty
-      if (!formData.tournamentName.trim()) {
+      if (!formData.name.trim()) {
         alert("Please enter a tournament name to proceed.");
         return;
       }
-      if (!formData.discipline) {
+      if (!formData.gameId) {
         alert("Please select a discipline to proceed.");
         return;
       }
@@ -61,7 +61,7 @@ const CreateTournament = () => {
 
     if (step === 2) {
       // Check if tournamentName and discipline are not empty
-      if (formData.participant.length == 0) {
+      if (formData.tournamentSize.length == 0) {
         alert("Please select a platform to proceed.");
         return;
       }
@@ -83,29 +83,53 @@ const CreateTournament = () => {
       }
     }
 
-    if (step === 4) {
-      // Check if endTime is before startTime
-      const startTime = new Date(formData.timeStarted);
-      const endTime = new Date(formData.timeEnded);
+    // if (step === 4) {
+    //   // Check if endTime is before startTime
+    //   const startTime = new Date(formData.timeStarted);
+    //   const endTime = new Date(formData.timeEnded);
 
-      if (!formData.description.trim()) {
-        alert("Please enter a description to proceed.");
-        return;
-      }
-      if (!formData.rules.trim()) {
-        alert("Please select a rules to proceed.");
-        return;
-      }
-    }
+    //   if (!formData.description.trim()) {
+    //     alert("Please enter a description to proceed.");
+    //     return;
+    //   }
+    //   if (!formData.rules.trim()) {
+    //     alert("Please select a rules to proceed.");
+    //     return;
+    //   }
+    // }
 
     setStep((prevStep) => prevStep + 1); // Move to the next step if validation passes
   };
   const prevStep = () => setStep((prevStep) => prevStep - 1);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form data submitted:", formData);
-    // Add your API submission code here
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/client/tournament/createTournament",
+        formData, // `game` is included in `formData`
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error submitting tournament:", error);
+
+      let errorMessage = "An error occurred while submitting the tournament.";
+
+      if (error.response) {
+        // If there is an error response from the server, use that message
+        errorMessage = error.response.data.message || errorMessage;
+        console.error("Server response:", error.response.data);
+      }
+
+      // Alert the user about the error
+      alert(errorMessage);
+    }
   };
 
   return (
@@ -119,26 +143,33 @@ const CreateTournament = () => {
             <label>Tournament Name (maximum 30 characters)</label>
             <input
               type="text"
-              name="tournamentName"
+              name="name"
               maxLength={30}
-              value={formData.tournamentName}
+              value={formData.name}
               onChange={handleChange}
             />
-
             <label>Discipline</label>
+
             <div className="discipline-grid">
-              {disciplines.map((game, index) => (
-                <div
-                  key={index}
-                  className={`discipline-item ${
-                    formData.discipline === game ? "selected" : ""
-                  }`}
-                  onClick={() => setFormData({ ...formData, discipline: game })}
-                >
-                  {game}
-                </div>
-              ))}
+              {gameData.length === 0 ? (
+                <p>No games available</p>
+              ) : (
+                gameData.map((game) => (
+                  <div
+                    key={game._id}
+                    className={`discipline-item ${
+                      formData.gameId === game._id ? "selected" : ""
+                    }`}
+                    onClick={() =>
+                      setFormData({ ...formData, gameId: game._id })
+                    }
+                  >
+                    {game.name}
+                  </div>
+                ))
+              )}
             </div>
+
             <button className="next-button" type="button" onClick={nextStep}>
               Next
             </button>
@@ -150,53 +181,20 @@ const CreateTournament = () => {
             <h2>Step 2: Participants</h2>
             <label>Number of team (s)</label>
             <div className="participant-grid">
-              {participants.map((participant, index) => (
+              {tournamentSize.map((tournamentSize, index) => (
                 <div
                   key={index}
                   className={`participant-item ${
-                    formData.participant === participant ? "selected" : ""
+                    formData.tournamentSize === tournamentSize ? "selected" : ""
                   }`}
                   onClick={() =>
-                    setFormData({ ...formData, participant: participant })
+                    setFormData({ ...formData, tournamentSize: tournamentSize })
                   }
                 >
-                  {participant}
+                  {tournamentSize}
                 </div>
               ))}
             </div>
-
-            {/* <label>Number of Participants</label>
-            <input
-              type="number"
-              name="participant"
-              className="participants_input"
-              value={formData.participant}
-              onChange={handleChange}
-              min="2"
-            />
-
-            <div className="participant-options">
-              <label>
-                <input
-                  type="radio"
-                  name="participantType"
-                  value="Players"
-                  checked={formData.participantType === "Players"}
-                  onChange={handleChange}
-                />
-                Players
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="participantType"
-                  value="Teams"
-                  checked={formData.participantType === "Teams"}
-                  onChange={handleChange}
-                />
-                Teams
-              </label>
-            </div> */}
 
             <div className="button-group">
               <button className="back-button" type="button" onClick={prevStep}>
@@ -261,30 +259,6 @@ const CreateTournament = () => {
               ))}
             </select>
 
-            {/* <div className="review-info-container">
-              <h3>Review Information</h3>
-              <ul>
-                <li>
-                  <strong>Tournament Name:</strong> {formData.tournamentName}
-                </li>
-                <li>
-                  <strong>Discipline:</strong> {formData.discipline}
-                </li>
-                <li>
-                  <strong>Platforms:</strong> {formData.platforms.join(", ")}
-                </li>
-                <li>
-                  <strong>Participants:</strong> {formData.participant}
-                </li>
-                <li>
-                  <strong>Participant Type:</strong> {formData.participantType}
-                </li>
-                <li>
-                  <strong>Timezone:</strong> {formData.timezone}
-                </li>
-              </ul>
-            </div> */}
-
             <div className="button-group">
               <button className="back-button" type="button" onClick={prevStep}>
                 Back
@@ -296,7 +270,7 @@ const CreateTournament = () => {
           </div>
         )}
 
-        {step === 4 && (
+        {/* {step === 4 && (
           <div className="form-container">
             <h2>Step 4: Tournament Description & Rules</h2>
             <label>Description</label>
@@ -332,9 +306,9 @@ const CreateTournament = () => {
               Next
             </button>
           </div>
-        )}
+        )} */}
 
-        {step === 5 && (
+        {step === 4 && (
           <div className="form-container">
             <h2>Step 5: Review Information</h2>
             <label>Description</label>
@@ -343,13 +317,14 @@ const CreateTournament = () => {
               <h3>Review Information</h3>
               <ul>
                 <li>
-                  <strong>Tournament Name:</strong> {formData.tournamentName}
+                  <strong>Tournament Name:</strong> {formData.name}
                 </li>
                 <li>
-                  <strong>Discipline:</strong> {formData.discipline}
+                  <strong>Discipline:</strong>{" "}
+                  {/* {selectedGame ? selectedGame.name : "No discipline selected"} */}
                 </li>
                 <li>
-                  <strong>Participants:</strong> {formData.participant}
+                  <strong>Participants:</strong> {formData.tournamentSize}
                 </li>
                 <li>
                   <strong>Timezone:</strong> {formData.timezone}
@@ -375,6 +350,7 @@ const CreateTournament = () => {
             <button className="back-button" type="button" onClick={prevStep}>
               Back
             </button>
+            <button onClick={handleSubmit}>Submit Tournament</button>
           </div>
         )}
       </form>

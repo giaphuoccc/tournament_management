@@ -1,7 +1,11 @@
 /* General page styling */
 .overview-page {
   padding: 20px;
-  background-color: #f4f4f9;
+  background: linear-gradient(
+    to bottom,
+    #3165cb,
+    #030115
+  ); /* Thêm gradient cho màu nền */
   display: flex;
   flex-direction: column;
   align-items: center;

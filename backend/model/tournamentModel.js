@@ -1,47 +1,77 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const tournamentSchema = new mongoose.Schema({
+const tournamentSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true,
-        trim: true
+      type: String,
+      required: true,
+      trim: true,
     },
     organizer: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     regStatus: {
-        type: String,
-        enum: ['open', 'closed'],
-        required: true
+      type: String,
+      enum: ["open", "closed"],
+      required: true,
     },
     tournamentSize: {
-        type: String,
-        enum: ['8', '16'], // 8 or 16 teams only 
-        required: true
+      type: String,
+      enum: ["8", "16"], // 8 or 16 teams only
+      required: true,
     },
     location: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     timeStarted: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     timeEnded: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     image: {
-        type: String
+      type: String,
     },
-    game: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "GameList"
-    }
-}, {
-    timestamps: true // Tự động thêm 'createdAt' và 'updatedAt'
-});
+    game: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "GameList",
+    },
+    rules: {
+      type: String, // Array of strings for multiple rules
+    },
+    description: {
+      type: String, // Array of strings for multiple rules
+    },
+    // prize: {
+    //   firstPlace: {
+    //     type: Number,
+    //     required: true,
+    //   },
+    //   secondPlace: {
+    //     type: Number,
+    //     required: true,
+    //   },
+    //   thirdPlace: {
+    //     type: Number,
+    //   },
+    // },
+    // schedule: [
+    //   {
+    //     matchName: { type: String, required: true }, // e.g., "Quarterfinals", "Finals"
+    //     teams: [String], // Array of team names/IDs
+    //     matchTime: { type: Date, required: true },
+    //     matchLocation: { type: String, required: true },
+    //   },
+    // ],
+  },
+  {
+    timestamps: true, // Tự động thêm 'createdAt' và 'updatedAt'
+  }
+);
 
 const TournamentList = mongoose.model("TournamentList", tournamentSchema);
 export default TournamentList;

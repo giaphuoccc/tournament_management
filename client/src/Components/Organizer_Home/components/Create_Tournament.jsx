@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/CreateTournament.css";
 import location from "../data/LocationData";
 import axios from "axios";
@@ -8,17 +9,21 @@ const CreateTournament = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "", // Matches 'name' field in schema (required)
-    organizer: "Tuo", // Matches 'organizer' field in schema (required)
+    organizer: "", // Matches 'organizer' field in schema (required)
     regStatus: "open", // Matches 'regStatus', defaulting to 'open' (required, with enum value)
     tournamentSize: "", // Matches 'tournamentSize' field (required, with enum value: "8" or "16")
     location: "", // Matches 'location' field in schema (required)
     timeStarted: "", // Matches 'timeStarted' field in schema (required)
     timeEnded: "", // Matches 'timeEnded' field in schema (required)
-    image: "", // Matches 'image' field in schema (optional)
+    image:
+      "https://cdn.builder.io/api/v1/image/assets/TEMP/3b59e9670453fa5f95b895…", // Matches 'image' field in schema (optional)
+    rules: "",
+    description: "",
     gameId: "", // Matches 'game' field in schema, expects ObjectId reference (optional)
   });
 
   const tournamentSize = ["8", "16"];
+  const navigate = useNavigate();
 
   const fetchGameData = async () => {
     try {
@@ -104,7 +109,6 @@ const CreateTournament = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
     try {
       const response = await axios.post(
         "http://localhost:3000/client/tournament/createTournament",
@@ -115,7 +119,12 @@ const CreateTournament = () => {
           },
         }
       );
-      console.log("Response:", response.data);
+      const createdTournamentId = response.data._id;
+
+      // Navigate to /overview-tournament and pass the ID
+      navigate("/overview-tournament", {
+        state: { tournamentId: createdTournamentId },
+      });
     } catch (error) {
       console.error("Error submitting tournament:", error);
 
@@ -140,6 +149,15 @@ const CreateTournament = () => {
         {step === 1 && (
           <div className="form-container">
             <h2>Step 1: Basic Info</h2>
+            <label>Organizer Name (maximum 30 characters)</label>
+            <input
+              type="text"
+              name="organizer"
+              maxLength={30}
+              value={formData.organizer}
+              onChange={handleChange}
+            />
+
             <label>Tournament Name (maximum 30 characters)</label>
             <input
               type="text"
@@ -253,7 +271,7 @@ const CreateTournament = () => {
             >
               <option value="">Select a country</option>
               {location.map((country) => (
-                <option key={country.code} value={country.code}>
+                <option key={country.name} value={country.name}>
                   {country.name}
                 </option>
               ))}
@@ -270,33 +288,29 @@ const CreateTournament = () => {
           </div>
         )}
 
-        {/* {step === 4 && (
+        {step === 4 && (
           <div className="form-container">
             <h2>Step 4: Tournament Description & Rules</h2>
             <label>Description</label>
             <textarea
-              rows={5} // Specifies the number of visible text lines
-              cols={30} // Specifies the width of the textarea in characters
+              rows={5}
+              cols={30}
               value={formData.description}
-              placeholder="Add your text" // Specifies a short hint that describes the expected value of the textarea
-              wrap="soft" // Specifies how the text in the textarea should be wrapped
-              readOnly={false} // Specifies that the textarea is read-only, meaning the user cannot modify its content
-              name="description" // Specifies the name of the textarea, which can be used when submitting a form
-              disabled={false} //  Specifies that the textarea is disabled, meaning the user cannot interact with it
-              onChange={handleChange}
+              placeholder="Add your text"
+              wrap="soft"
+              name="description"
+              onChange={handleChange} // Correctly updates 'description'
             />
 
             <label>Rules</label>
             <textarea
-              rows={5} // Specifies the number of visible text lines
-              cols={30} // Specifies the width of the textarea in characters
+              rows={5}
+              cols={30}
               value={formData.rules}
-              placeholder="Add your text" // Specifies a short hint that describes the expected value of the textarea
-              wrap="soft" // Specifies how the text in the textarea should be wrapped
-              readOnly={false} // Specifies that the textarea is read-only, meaning the user cannot modify its content
-              name="rules" // Specifies the name of the textarea, which can be used when submitting a form
-              disabled={false} //  Specifies that the textarea is disabled, meaning the user cannot interact with it
-              onChange={handleChange}
+              placeholder="Add your text"
+              wrap="soft"
+              name="rules"
+              onChange={handleChange} // Correctly updates 'rules'
             />
 
             <button className="back-button" type="button" onClick={prevStep}>
@@ -306,9 +320,9 @@ const CreateTournament = () => {
               Next
             </button>
           </div>
-        )} */}
+        )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div className="form-container">
             <h2>Step 5: Review Information</h2>
             <label>Description</label>
@@ -316,6 +330,9 @@ const CreateTournament = () => {
             <div className="review-info-container">
               <h3>Review Information</h3>
               <ul>
+                <li>
+                  <strong>Organizer:</strong> {formData.organizer}
+                </li>
                 <li>
                   <strong>Tournament Name:</strong> {formData.name}
                 </li>

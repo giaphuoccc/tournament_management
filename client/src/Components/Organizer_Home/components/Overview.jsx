@@ -6,12 +6,12 @@ const Overview = () => {
   const location = useLocation();
   const [tournamentData, setTournamentData] = useState([]);
   // const { tournamentId } = location.state || {};
-  const { tournamentId } = "673c578dabdf05c35e1fc98b";
+  const { tournamentId } = "673dd3b77147a381671f2a49";
 
   const fetchTournamentData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/client/tournament/getTournamentByTournamentId/673c578dabdf05c35e1fc98b`
+        `http://localhost:3000/client/tournament/getTournamentByTournamentId/673dd3b77147a381671f2a49`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -19,7 +19,6 @@ const Overview = () => {
 
       const data = await response.json();
       setTournamentData(data);
-      console.log("Logg", tournamentData);
     } catch (error) {
       console.error("Error fetching game data:", error);
     }
@@ -32,6 +31,8 @@ const Overview = () => {
     // }
     fetchTournamentData();
   }, []);
+
+  console.log("Logg", tournamentData);
 
   return (
     <div className="overview-page">

@@ -46,11 +46,9 @@ const tournamentSchema = new mongoose.Schema(
     description: {
       type: String, // Array of strings for multiple rules
     },
-    // prize: {
-    //   firstPlace: {
-    //     type: Number,
-    //     required: true,
-    //   },
+    prize: {
+      type: Number,
+    },
     //   secondPlace: {
     //     type: Number,
     //     required: true,

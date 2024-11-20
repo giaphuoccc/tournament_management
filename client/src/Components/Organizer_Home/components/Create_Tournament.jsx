@@ -15,9 +15,9 @@ const CreateTournament = () => {
     location: "", // Matches 'location' field in schema (required)
     timeStarted: "", // Matches 'timeStarted' field in schema (required)
     timeEnded: "", // Matches 'timeEnded' field in schema (required)
-    image:
-      "https://cdn.builder.io/api/v1/image/assets/TEMP/3b59e9670453fa5f95b895…", // Matches 'image' field in schema (optional)
+    image: "https://picsum.photos/200", // Matches 'image' field in schema (optional)
     rules: "",
+    prize: "",
     description: "",
     gameId: "", // Matches 'game' field in schema, expects ObjectId reference (optional)
   });
@@ -188,6 +188,15 @@ const CreateTournament = () => {
               )}
             </div>
 
+            <label>Tournament Prize (Optional) </label>
+            <input
+              type="number"
+              name="prize"
+              // maxLength={30}
+              value={formData.prize}
+              onChange={handleChange}
+            />
+            <br></br>
             <button className="next-button" type="button" onClick={nextStep}>
               Next
             </button>

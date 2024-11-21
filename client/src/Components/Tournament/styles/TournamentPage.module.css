@@ -1,12 +1,28 @@
 .tournamentPage {
   font-family: Poppins, sans-serif;
-  background-color: rgba(26, 94, 172, 1);
+  background: linear-gradient(to bottom, #3165cb, #030115);
   color: #fff;
 }
 
 .mainContent {
   display: flex;
   flex-direction: column;
+}
+.headerRow {
+  display: flex;
+  justify-content: space-between; /* Đẩy tiêu đề và select ra hai bên */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  margin-bottom: 1rem; /* Khoảng cách dưới */
+}
+
+.countrySelect {
+  padding: 5px 25px; /* Tăng khoảng cách bên trong */
+  font-size: 1.2rem; /* Tăng kích thước chữ */
+  border: 1px solid #ccc; /* Đặt viền */
+  border-radius: 5px; /* Góc bo tròn */
+  width: 250px; /* Đặt chiều rộng cố định (nếu cần) */
+  max-width: 100%; /* Đảm bảo không vượt quá vùng chứa */
+  height: 55px; /* Tăng chiều cao của select */
 }
 
 .heroSection {

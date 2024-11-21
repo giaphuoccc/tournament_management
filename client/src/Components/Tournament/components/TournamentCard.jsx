@@ -1,6 +1,6 @@
 //import React from "react";
 import styles from "../styles/TournamentCard.module.css";
-import {format} from 'date-fns'
+import { format } from "date-fns";
 
 const TournamentCard = ({
   name,
@@ -12,20 +12,15 @@ const TournamentCard = ({
   timeEnded,
   image,
 }) => {
-  
   // Format the dates using date-fns
-  const formattedTimeStarted = format(new Date(timeStarted), 'MMMM d, yyyy');
-  const formattedTimeEnded = format(new Date(timeEnded), 'MMMM d, yyyy');
-  
+  const formattedTimeStarted = format(new Date(timeStarted), "MMMM d, yyyy");
+  const formattedTimeEnded = format(new Date(timeEnded), "MMMM d, yyyy");
+
   const formattedDateRange = `${formattedTimeStarted} - ${formattedTimeEnded}`;
 
   return (
     <article className={styles.tournamentCard}>
-      <img
-        src={image}
-        alt={`${name} logo`}
-        className={styles.tournamentLogo}
-      />
+      <img src={image} alt={`${name} logo`} className={styles.tournamentLogo} />
       <div className={styles.tournamentInfo}>
         <h2 className={styles.tournamentTitle}>{name}</h2>
         <p className={styles.tournamentOrganizer}>
@@ -36,6 +31,7 @@ const TournamentCard = ({
         <p className={styles.tournamentDate}>{formattedDateRange}</p>
         <p className={styles.tournamentLocation}>{location}</p>
         <p className={styles.tournamentTeams}>{tournamentSize} Teams</p>
+
         {regStatus && (
           <p
             className={`${styles.tournamentStatus} ${

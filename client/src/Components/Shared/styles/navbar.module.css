@@ -1,70 +1,69 @@
+.header {
+  background-color: rgba(64, 72, 89, 0.88);
+  padding: 25px 55px 25px;
+  min-height: 110px;
+  /* display: flex; */
+  align-items: center;
+}
 
- .header {
-    background-color: rgba(64, 72, 89, 0.88);
-    padding: 21px 55px 37px;
-    min-height: 110px;
-    /* display: flex; */
-    align-items: center;
-  }
-  
-  .headerContent {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1325px;
-    margin: 0 auto;
-  }
-  
-  .logoSection {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-  }
-  
-  .logo {
-    color: #fff;
-    font-size: 29px;
-    font-weight: 800;
-    line-height: 2;
-  }
-  
-  .mainNav {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  
-  .navLink {
-    color: #4defa6;
-    text-decoration: none;
-  }
-  
-  .userActions {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-  
-  .userNav {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  
-  /* .searchForm {
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1325px;
+  margin: 0 auto;
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo {
+  color: #fff;
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 2;
+}
+
+.mainNav {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.navLink {
+  color: #4defa6;
+  text-decoration: none;
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.userNav {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* .searchForm {
     display: flex;
     align-items: center;
     background-color: rgba(198, 196, 196, 0.25);
     border-radius: 15px;
     padding: 7px 18px;
   } */
-  
-  /* .searchInput {
+
+/* .searchInput {
     background: transparent;
     border: none;
     color: rgba(255, 255, 255, 0.7);
     font-size: 16px;
   } */
-  
-  /* .searchButton {
+
+/* .searchButton {
     background: transparent;
     border: none;
     cursor: pointer;
@@ -74,71 +73,71 @@
     width: 30px;
     height: 30px;
   } */
-  
+
+.signInButton {
+  background-color: #fa9021;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 41px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  .header {
+    padding: 0 20px;
+  }
+
+  .headerContent {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
   .signInButton {
-    background-color: #fa9021;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 41px;
-    font-size: 13px;
-    cursor: pointer;
+    padding: 12px 20px;
   }
-  
-  @media (max-width: 991px) {
-    .header {
-      padding: 0 20px;
-    }
-  
-    .headerContent {
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-  
-    .signInButton {
-      padding: 12px 20px;
-    }
-  }
-  
-  .searchContainer {
-    display: flex;
-    align-items: center;
-    border-radius: 4px; /* Bo góc */
-    overflow: hidden; /* Ẩn các phần thừa ra ngoài */
-    background-color: rgba(198, 196, 196, 0.25);
-    border-radius: 15px;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  border-radius: 4px; /* Bo góc */
+  overflow: hidden; /* Ẩn các phần thừa ra ngoài */
+  background-color: rgba(198, 196, 196, 0.25);
+  border-radius: 15px;
 }
 
 .searchInput {
-    padding: 10px; /* Thêm khoảng cách bên trong */
-    border: none; /* Xóa đường viền mặc định */
-    outline: none; /* Bỏ hiệu ứng outline */
-    font-size: 16px; /* Kích thước font chữ */
-    width: 200px; /* Đặt chiều rộng cho ô tìm kiếm */
-    line-height: 1.5; /* Đặt chiều cao dòng để có khoảng cách hợp lý */
+  padding: 10px; /* Thêm khoảng cách bên trong */
+  border: none; /* Xóa đường viền mặc định */
+  outline: none; /* Bỏ hiệu ứng outline */
+  font-size: 16px; /* Kích thước font chữ */
+  width: 200px; /* Đặt chiều rộng cho ô tìm kiếm */
+  line-height: 1.5; /* Đặt chiều cao dòng để có khoảng cách hợp lý */
 
-    background: transparent;
-    color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .searchInput::placeholder {
-    color: #aaa; /* Màu cho placeholder */
-    opacity: 1; /* Đảm bảo rằng opacity là 1 để hiển thị rõ ràng */
+  color: #aaa; /* Màu cho placeholder */
+  opacity: 1; /* Đảm bảo rằng opacity là 1 để hiển thị rõ ràng */
 }
 
 .searchButton {
-    background-color: transparent; /* Nền trong suốt cho nút */
-    border: none; /* Xóa đường viền */
-    cursor: pointer; /* Đổi con trỏ thành pointer */
-    align-items: center;
-    padding: 15px;
+  background-color: transparent; /* Nền trong suốt cho nút */
+  border: none; /* Xóa đường viền */
+  cursor: pointer; /* Đổi con trỏ thành pointer */
+  align-items: center;
+  padding: 15px;
 }
 
 .searchButton:hover {
-    background-color: #f0f0f0; /* Màu nền khi hover */
+  background-color: #f0f0f0; /* Màu nền khi hover */
 }
 
 .searchIcon {
-    width: 22.5px; /* Kích thước biểu tượng tìm kiếm */
-    height: 22.5px; /* Kích thước biểu tượng tìm kiếm */
+  width: 22.5px; /* Kích thước biểu tượng tìm kiếm */
+  height: 22.5px; /* Kích thước biểu tượng tìm kiếm */
 }

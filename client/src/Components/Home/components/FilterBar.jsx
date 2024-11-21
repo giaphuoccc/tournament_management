@@ -16,10 +16,11 @@ const FilterBar = () => {
         </button>
       </div>
       <div className={styles.filterDropdown}>
-        <button className={styles.dropdownToggle}>
-          Search a tournament
-          <span className={styles.dropdownArrow}>V</span>
-        </button>
+        <input
+          className={styles.dropdownToggle}
+          type="search"
+          placeholder="Search a Tournament"
+        />
       </div>
       <button className={styles.filterButton}>
         <img

@@ -1,27 +1,36 @@
 import TournamentCard from "./TournamentCard";
 
-import {useState, useEffect} from "react";
-import { useParams } from "react-router-dom"
-import Alert from '@mui/material/Alert';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Alert from "@mui/material/Alert";
 
 import styles from "../styles/TournamentList.module.css";
 
-const TournamentList = ({ tournamentStatus }) => {
+const TournamentList = ({ tournamentStatus, countryFilter }) => {
   const [tournamentData, setTournamentData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Sử dụng giá trị từ `countryFilter` truyền xuống
+  const filterLocation = countryFilter || "";
+
   const { gameId } = useParams();
 
   useEffect(() => {
     const fetchTournamentDataByGameId = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/client/tournament/getTournamentByGameId/${gameId}`);
+        const response = await fetch(
+          `http://localhost:3000/client/tournament/getTournamentByGameId/${gameId}`
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
         setTournamentData(data);
+
+        // Thêm log để kiểm tra dữ liệu trả về
+        console.log("Fetched tournament data:", data);
       } catch (error) {
         console.error("Error fetching tournament data", error);
         setError("Error fetching tournament data");
@@ -33,35 +42,43 @@ const TournamentList = ({ tournamentStatus }) => {
     fetchTournamentDataByGameId();
   }, [gameId]);
 
-    if (loading) {
-      return <div>Loading tournaments...</div>;
-    }
+  if (loading) {
+    return <div>Loading tournaments...</div>;
+  }
 
-    if (error) {
+  if (error) {
+    return (
+      <div>
+        <Alert variant="outlined" severity="error">
+          This is an outlined error Alert.
+        </Alert>
+      </div>
+    );
+  }
+
+  //Date today
+  const currentDate = new Date();
+
+  const filteredTournaments = tournamentData.filter((tournament) => {
+    const startDate = new Date(tournament.timeStarted);
+    const endDate = new Date(tournament.timeEnded);
+    const matchesLocation =
+      filterLocation === "All" ||
+      tournament.location.toLowerCase() === filterLocation.toLowerCase();
+
+    if (tournamentStatus === "Ongoing") {
       return (
-        <div>
-          <Alert variant="outlined" severity="error">
-            This is an outlined error Alert.
-          </Alert>
-        </div>
+        startDate <= currentDate && endDate >= currentDate && matchesLocation
       );
     }
-
-    //Date today
-    const currentDate = new Date();
-    
-    // Filter tournaments based on status
-    const filteredTournaments = tournamentData.filter(tournament => {
-      if (tournamentStatus === 'Ongoing') {
-        return new Date(tournament.timeStarted) <= currentDate && new Date(tournament.timeEnded) >= currentDate;
-      }; 
-      if (tournamentStatus === 'Past') {
-        return new Date(tournament.timeEnded) < currentDate; 
-      };
-      if (tournamentStatus === 'Upcoming') {
-        return new Date(tournament.timeStarted) > currentDate;
-      }; return true;
-    });
+    if (tournamentStatus === "Past") {
+      return endDate < currentDate && matchesLocation;
+    }
+    if (tournamentStatus === "Upcoming") {
+      return startDate > currentDate && matchesLocation;
+    }
+    return matchesLocation;
+  });
 
   return (
     <div className={styles.tournamentList}>
@@ -69,7 +86,7 @@ const TournamentList = ({ tournamentStatus }) => {
         <TournamentCard key={data._id} {...data} />
       ))}
       <nav className={styles.pagination} aria-label="Tournament list pages">
-        <button className={styles.paginationButton} aria-label="Previous page">
+        {/* <button className={styles.paginationButton} aria-label="Previous page">
           &lt;
         </button>
         <button className={`${styles.paginationButton} ${styles.active}`}>
@@ -79,18 +96,13 @@ const TournamentList = ({ tournamentStatus }) => {
         <button className={styles.paginationButton}>3</button>
         <button className={styles.paginationButton} aria-label="Next page">
           &gt;
-        </button>
+        </button> */}
       </nav>
     </div>
   );
-}
+};
 
 export default TournamentList;
-
-
-
-
-
 
 //   {
 //     id: 1,

@@ -26,8 +26,13 @@
   align-items: center;
   gap: 20px;
   cursor: pointer;
+  border: none;
+  outline: none;
 }
-
+.dropdownToggle::placeholder {
+  color: #aaa; /* Màu cho placeholder */
+  opacity: 1;
+}
 .dropdownArrow {
   font-size: 10px;
 }

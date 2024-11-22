@@ -6,6 +6,7 @@ import {
   getAllTournaments,
   getTournamentByGameId,
   getTournamentByTournamentId,
+  deleteTournamentById,
 } from "../controllers/tournamentController.js";
 
 //lay danh sach giai dau
@@ -16,5 +17,6 @@ router.get(
   "/getTournamentByTournamentId/:tournamentId",
   getTournamentByTournamentId
 );
+router.delete("/deleteTournamentById/:id", deleteTournamentById);
 
 export default router;

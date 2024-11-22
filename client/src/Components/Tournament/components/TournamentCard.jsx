@@ -1,8 +1,10 @@
 //import React from "react";
 import styles from "../styles/TournamentCard.module.css";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 const TournamentCard = ({
+  _id,
   name,
   organizer,
   regStatus,
@@ -19,6 +21,10 @@ const TournamentCard = ({
   const formattedDateRange = `${formattedTimeStarted} - ${formattedTimeEnded}`;
 
   return (
+    <Link
+    to={`/viewTournament/${_id}`} // Điều hướng tới URL chi tiết giải đấu
+    className={styles.tournamentLink}
+    >
     <article className={styles.tournamentCard}>
       <img src={image} alt={`${name} logo`} className={styles.tournamentLogo} />
       <div className={styles.tournamentInfo}>
@@ -43,6 +49,7 @@ const TournamentCard = ({
         )}
       </div>
     </article>
+    </Link>
   );
 };
 

@@ -1,0 +1,295 @@
+.viewTournaments {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #3165cb, #030115); /* Gradient nền */
+  min-height: 100vh; /* Đảm bảo toàn màn hình */
+}
+
+.header {
+  background-color: rgba(64, 72, 89, 0.88);
+  padding: 25px 55px;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1325px;
+  margin: 0 auto;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo {
+  color: #fff;
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 2;
+  margin: 0;
+}
+
+.navLink {
+  color: #4defa6;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.signInButton {
+  background-color: #fa9021;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 12px 41px;
+}
+
+.tournamentInfoSection {
+  position: relative;
+  padding: 173px 82px 29px 70px;
+}
+
+.backgroundContainer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 367px;
+  overflow: hidden;
+}
+
+.backgroundImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tournamentLogo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 294px;
+  max-width: 100%;
+}
+
+.tournamentDetails {
+  flex: 0 0 30%; /* Sidebar cố định chiều rộng */
+  margin-top: 10px;
+}
+
+.tournamentTitle {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 2;
+  margin: 0;
+}
+
+.tournamentMeta {
+  color: #0b3fa4;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+.gameInfo {
+  color: #3574ee;
+}
+
+.dateInfo,
+.organizer,
+.location {
+  color: #fff;
+}
+
+/* MenuView Styles */
+.menuView {
+  background-color: rgba(103, 135, 195, 0.34); /* Màu nền mờ */
+  padding: 20px 50px; /* Khoảng cách lề */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Đường kẻ dưới menu */
+}
+
+.menuList {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  gap: 30px; /* Khoảng cách giữa các tab */
+  justify-content: flex-start; /* Căn menu về phía trái */
+}
+
+.menuLink {
+  color: #fff; /* Màu chữ mặc định */
+  font-size: 18px; /* Kích thước chữ */
+  font-weight: 500; /* Độ đậm chữ */
+  text-decoration: none; /* Bỏ gạch dưới */
+  padding: 10px 15px; /* Khoảng cách nội dung trong tab */
+  border-radius: 5px; /* Bo góc tab */
+  background-color: rgba(103, 135, 195, 0.34); /* Nền tab trùng với màu menu */
+  border: none; /* Loại bỏ viền */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi */
+}
+
+/* Hover hiệu ứng */
+.menuLink:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Nền mờ khi hover */
+  color: #fa9021; /* Màu cam khi hover */
+}
+
+/* Tab đang được chọn */
+.menuLink.active {
+  background-color: #3574ee; /* Nền xanh đậm khi được chọn */
+  color: #fff; /* Màu chữ trắng */
+  font-weight: bold; /* Tăng độ đậm chữ */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
+}
+
+.contentSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Căn nội dung theo hàng trên cùng */
+  gap: 30px; /* Khoảng cách giữa mô tả và sidebar */
+  padding: 40px 55px;
+  max-width: 1325px;
+  margin: 0 auto;
+}
+
+.descriptionSection {
+  flex: 1; /* Phần mô tả chiếm toàn bộ chiều rộng còn lại */
+  max-width: 65%; /* Đảm bảo không quá rộng */
+}
+
+.detailsSection,
+.playoffsSection {
+  margin-bottom: 20px; /* Khoảng cách giữa các mục trong sidebar */
+}
+
+.detailsTitle,
+.playoffsTitle {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.detailsText,
+.playoffsText {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.playoffsSection {
+  border: 1px solid #fff; /* Đường viền */
+  padding: 15px;
+  border-radius: 8px; /* Bo tròn viền */
+}
+
+.footer {
+  background-color: #070707;
+  color: #fff;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1219px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footerSection,
+.footerNav,
+.footerContact {
+  flex: 1;
+}
+
+.footerLogo {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 13px;
+}
+
+.footerText,
+.footerContactText {
+  font-size: 16px;
+  margin-bottom: 39px;
+}
+
+.footerSocial {
+  font-size: 16px;
+}
+
+.footerNavTitle,
+.footerContactTitle {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 26px;
+}
+
+.footerNavList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footerNavList li {
+  margin-bottom: 10px;
+}
+
+.footerNavList a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footerContactInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.footerPhone {
+  font-size: 16px;
+}
+
+.footerSocialIcons {
+  width: 184px;
+  max-width: 100%;
+}
+
+.footerDivider {
+  border-top: 1px solid #d2d2d2;
+  margin: 30px 0 28px;
+}
+
+.footerCopyright {
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 991px) {
+  .header {
+    padding: 25px 20px;
+  }
+
+  .contentSection {
+    flex-direction: column; /* Dọc trên màn hình nhỏ */
+    padding: 40px 20px;
+  }
+
+  .descriptionSection,
+  .tournamentDetails {
+    max-width: 100%;
+  }
+
+  .footerContent {
+    flex-direction: column;
+    gap: 40px;
+  }
+}

@@ -55,66 +55,95 @@ const Overview = () => {
             accept or refuse them.
           </p>
         </div> */}
-
+        {/* Information Card */}
         <div className="main-card">
-          <div className="header">
-            <h2>{tournamentData ? tournamentData.name : "Tournament Name"}</h2>
-            <p>
-              {tournamentData && tournamentData.game
-                ? tournamentData.game.name
-                : "Game Name"}
-            </p>
-            <button className="draft-button">Draft</button>
+          <div className="mainTiltle">
+            <h2>Information</h2>
+
+            <div className="contentInformation">
+              <p className="titleContent"> Name Tournamet:</p>
+
+              <div className="nameGame-Tournament">
+                <p className="nameTournamet">
+                  {tournamentData ? tournamentData.name : "Tournament Name"}
+                </p>
+                <p className="nameGame">
+                  {tournamentData && tournamentData.game
+                    ? tournamentData.game.name
+                    : "Game Name"}
+                </p>
+              </div>
+            </div>
+
+            <div className="contentOrganizer">
+              <p className="titleContent"> Organaizer:</p>
+
+              <div className="nameGame-Tournament">
+                <p className="nameTournamet">
+                  {tournamentData
+                    ? tournamentData.organizer
+                    : "Tournament Name"}
+                </p>
+              </div>
+            </div>
+
+            {/* <div className="descriptionTournament">
+              <p className="titleContent">Description:</p>
+              <p>
+                {tournamentData ? tournamentData.description : "Description "}
+              </p>
+            </div> */}
           </div>
-          <div className="status-tabs">
-            <span className="status active">SETUP</span>
-            <span className="status">PENDING</span>
-            <span className="status">RUNNING</span>
-          </div>
-          <p className="status-message">
-            You should wait for participants to register and then choose to
-            accept or refuse them.
-          </p>
         </div>
 
         {/* Participants Card */}
-        <div className="card participants-card">
-          <div className="card-header">
-            <h3>Participants</h3>
-            <a href="#" className="add-link">
+        <div className="main-card">
+          <div className="mainTitle">
+            <h2>Location</h2>
+          </div>
+          {/* <a href="#" className="add-link">
               + Add
-            </a>
-          </div>
-          <div className="card-content">
-            <p className="count">
-              0 <span>Participants</span>
-            </p>
-            <p className="count">
-              2 <span>Tournament size</span>
+            </a> */}
+          <div className="contentLocation">
+            <p className="locationName">
+              {tournamentData ? tournamentData.location : "Location Name"}
             </p>
           </div>
-          <a href="#" className="configure-checkin">
-            Configure check-in
-          </a>
-        </div>
 
-        {/* Structure Card */}
-        <div className="card structure-card">
-          <div className="card-header">
-            <h3>Structure</h3>
-            <a href="#" className="create-stage-link">
-              + Create new stage
-            </a>
+          <div className="tournamentTime">
+            <div className="mainTiltle">
+              <h2>Time</h2>
+            </div>
+            <p className="locationName">
+              <span className="titleTime">Time Start: </span>
+              {tournamentData
+                ? new Date(tournamentData.timeStarted).toLocaleDateString(
+                    "en-GB"
+                  )
+                : "Time Start"}
+            </p>
+
+            <p className="locationName">
+              <span className="titleTime">Time End: </span>
+              {tournamentData
+                ? new Date(tournamentData.timeEnded).toLocaleDateString("en-GB")
+                : "Time End"}
+            </p>
           </div>
-          <p>1. Bracket groups</p>
-          <p className="structure-details">0/3 players Pending</p>
-          <a href="#" className="view-stages-link">
-            View all stages
-          </a>
         </div>
 
-        {/* Registrations Card */}
-        <div className="card registrations-card">
+        {/* Rules - Prize Card */}
+        <div className="main-card">
+          <div className="mainTitle">
+            <h2>Rules</h2>
+            <p className="contentRules">
+              {tournamentData ? tournamentData.rules : "Rules"}
+            </p>
+          </div>
+        </div>
+
+        {/* Description Card */}
+        {/* <div className="card registrations-card">
           <h3>Registrations</h3>
           <div className="registration-status">
             <span>
@@ -131,6 +160,14 @@ const Overview = () => {
             </span>
           </div>
           <p className="no-registrations">No pending registrations</p>
+        </div> */}
+        <div className="main-card">
+          <div className="mainTitle">
+            <h2>Description</h2>
+            <p className="contentDescription">
+              {tournamentData ? tournamentData.description : "Description"}
+            </p>
+          </div>
         </div>
       </div>
 

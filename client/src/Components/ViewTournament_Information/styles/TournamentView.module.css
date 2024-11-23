@@ -8,14 +8,14 @@
 
 .header {
   background-color: rgba(64, 72, 89, 0.88);
-  padding: 25px 55px;
+  padding: 25px 40px; /* Giảm padding để gần hai bên hơn */
 }
 
 .headerContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1325px;
+  max-width: 95%; /* Giảm chiều rộng tối đa */
   margin: 0 auto;
 }
 
@@ -51,7 +51,7 @@
 
 .tournamentInfoSection {
   position: relative;
-  padding: 173px 82px 29px 70px;
+  padding: 173px 40px 29px 40px; /* Giảm padding để nội dung gần hai bên */
 }
 
 .backgroundContainer {
@@ -110,7 +110,7 @@
 /* MenuView Styles */
 .menuView {
   background-color: rgba(103, 135, 195, 0.34); /* Màu nền mờ */
-  padding: 20px 50px; /* Khoảng cách lề */
+  padding: 20px 40px; /* Giảm khoảng cách padding */
   border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Đường kẻ dưới menu */
 }
 
@@ -154,40 +154,64 @@
   justify-content: space-between;
   align-items: flex-start; /* Căn nội dung theo hàng trên cùng */
   gap: 30px; /* Khoảng cách giữa mô tả và sidebar */
-  padding: 40px 55px;
-  max-width: 1325px;
+  padding: 40px 40px; /* Giảm padding để gần hai bên */
+  max-width: 95%; /* Đưa nội dung gần hơn với hai bên màn hình */
   margin: 0 auto;
 }
 
 .descriptionSection {
   flex: 1; /* Phần mô tả chiếm toàn bộ chiều rộng còn lại */
-  max-width: 65%; /* Đảm bảo không quá rộng */
+  max-width: 75%; /* Đảm bảo không quá rộng */
 }
 
-.detailsSection,
-.playoffsSection {
-  margin-bottom: 20px; /* Khoảng cách giữa các mục trong sidebar */
+.detailsSection{
+  padding-right: 0%;
+  margin-right: 10%;
+  margin-bottom: 50px; /* Khoảng cách giữa các mục trong sidebar */
 }
+.playoffsSection {
+  border: 1px solid #fff; /* Đường viền */
+  padding: 55px;
+  border-radius: 8px; /* Bo tròn viền */
+  max-width: 70%; /* Giới hạn chiều rộng tối đa */
+  width: 100%; /* Đảm bảo nó co lại theo nội dung */
+  
+}
+
 
 .detailsTitle,
 .playoffsTitle {
   color: #fff;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 24px; /* Tăng kích thước chữ */
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
 .detailsText,
 .playoffsText {
   color: #fff;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 18px; /* Tăng kích thước chữ */
+  line-height: 1.6;
 }
 
 .playoffsSection {
   border: 1px solid #fff; /* Đường viền */
   padding: 15px;
   border-radius: 8px; /* Bo tròn viền */
+}
+
+.sectionTitle {
+  color: #fff;
+  font-size: 26px; /* Tăng kích thước chữ */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.descriptionText {
+  color: #fff;
+  font-size: 18px; /* Tăng kích thước chữ */
+  line-height: 1.8;
+  margin-bottom: 15px;
 }
 
 .footer {
@@ -198,7 +222,7 @@
 .footerContent {
   display: flex;
   justify-content: space-between;
-  max-width: 1219px;
+  max-width: 95%; /* Đưa footer gần hơn với hai bên màn hình */
   margin: 0 auto;
   padding: 0 20px;
 }

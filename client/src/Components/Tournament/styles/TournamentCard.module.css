@@ -52,6 +52,18 @@
   color: #fa9021;
 }
 
+.tournamentLink {
+  color: inherit; /* Kế thừa màu từ phần tử cha */
+  text-decoration: none; /* Xóa gạch chân mặc định của link */
+}
+
+.tournamentLink:hover {
+  text-decoration: none; /* Không thay đổi khi hover */
+}
+
+.tournamentTitle, .tournamentOrganizer, .tournamentDate, .tournamentLocation, .tournamentTeams, .tournamentStatus {
+  color: inherit; /* Đảm bảo các thành phần con giữ nguyên màu */
+}
 @media (max-width: 991px) {
   .tournamentCard {
     flex-direction: column;

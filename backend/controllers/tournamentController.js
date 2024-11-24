@@ -124,3 +124,22 @@ export const getTournamentByTournamentId = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const deleteTournamentById = async (req, res) => {
+  const { id } = req.params; // Extract the ID from the request parameters
+
+  try {
+    const deletedTournament = await Tournaments.findByIdAndDelete(id);
+
+    if (!deletedTournament) {
+      return res.status(404).json({ message: "Tournament not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Tournament deleted successfully", deletedTournament });
+  } catch (error) {
+    console.error("Error deleting tournament:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

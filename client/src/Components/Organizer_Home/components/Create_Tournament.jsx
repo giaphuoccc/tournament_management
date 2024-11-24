@@ -7,6 +7,7 @@ import axios from "axios";
 const CreateTournament = () => {
   const [gameData, setGameData] = useState([]);
   const [step, setStep] = useState(1);
+  const [tourID, setTourID] = useState("");
   const [formData, setFormData] = useState({
     name: "", // Matches 'name' field in schema (required)
     organizer: "", // Matches 'organizer' field in schema (required)
@@ -83,25 +84,10 @@ const CreateTournament = () => {
       }
 
       if (!formData.location.trim()) {
-        alert("End h");
+        alert("Please Choose Location");
         return; // Prevent moving to submission if the dates are invalid
       }
     }
-
-    // if (step === 4) {
-    //   // Check if endTime is before startTime
-    //   const startTime = new Date(formData.timeStarted);
-    //   const endTime = new Date(formData.timeEnded);
-
-    //   if (!formData.description.trim()) {
-    //     alert("Please enter a description to proceed.");
-    //     return;
-    //   }
-    //   if (!formData.rules.trim()) {
-    //     alert("Please select a rules to proceed.");
-    //     return;
-    //   }
-    // }
 
     setStep((prevStep) => prevStep + 1); // Move to the next step if validation passes
   };
@@ -121,10 +107,14 @@ const CreateTournament = () => {
       );
       const createdTournamentId = response.data._id;
 
+      setTourID(createdTournamentId);
+
       // Navigate to /overview-tournament and pass the ID
-      navigate("/overview-tournament", {
-        state: { tournamentId: createdTournamentId },
-      });
+      // navigate("/overview-tournament", {
+      //   state: { tournamentId: createdTournamentId },
+      // });
+
+      setStep((prevStep) => prevStep + 1);
     } catch (error) {
       console.error("Error submitting tournament:", error);
 
@@ -332,13 +322,16 @@ const CreateTournament = () => {
         )}
 
         {step === 5 && (
-          <div className="form-container">
-            <h2>Step 5: Review Information</h2>
-            <label>Description</label>
+          <div className="form-container review-step">
+            <h2 className="step-title">
+              📋 Step 5: Review Your Tournament Details
+            </h2>
 
             <div className="review-info-container">
-              <h3>Review Information</h3>
-              <ul>
+              <h3 className="review-title">
+                Please confirm the information below:
+              </h3>
+              <ul className="info-list">
                 <li>
                   <strong>Organizer:</strong> {formData.organizer}
                 </li>
@@ -376,7 +369,28 @@ const CreateTournament = () => {
             <button className="back-button" type="button" onClick={prevStep}>
               Back
             </button>
-            <button onClick={handleSubmit}>Submit Tournament</button>
+            <button className="create-button" type="button" onClick={nextStep}>
+              Create Tournament
+            </button>
+          </div>
+        )}
+
+        {step === 6 && (
+          <div className="form-container final-step">
+            <div className="tournament-id-container">
+              <h1 className="title">🎉 Your Tournament Has Been Created! 🎉</h1>
+              <p className="subtitle">
+                Keep your Tournament ID safe for future updates or management.
+              </p>
+              <div className="id-box">
+                <p className="label">Tournament ID:</p>
+                <h2 className="tournament-id">{tourID}</h2>
+              </div>
+              <p className="note">
+                You’ll need this ID to edit or delete your tournament in the
+                future.
+              </p>
+            </div>
           </div>
         )}
       </form>

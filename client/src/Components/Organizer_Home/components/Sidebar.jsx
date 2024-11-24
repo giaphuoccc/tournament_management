@@ -6,13 +6,7 @@ const Sidebar = () => (
     <h2>Organizer</h2>
     <div className="menu">
       <p>Overview</p>
-      <p>Tournaments</p>
-      <p>Circuits</p>
-      <p>Websites</p>
-      <p>Subscription</p>
-      <p>Billing</p>
-      <p>Permissions</p>
-      <p>Settings</p>
+      <p>Create Tournaments</p>
     </div>
     <div className="sidebar-footer">
       <p>Support</p>

@@ -5,13 +5,13 @@ import "../styles/OverviewPage.css";
 const Overview = () => {
   const location = useLocation();
   const [tournamentData, setTournamentData] = useState([]);
-  // const { tournamentId } = location.state || {};
-  const { tournamentId } = "673dd3b77147a381671f2a49";
+  const { tournamentId } = location.state || {};
+  // const { tournamentId } = "673dd3b77147a381671f2a49";
 
   const fetchTournamentData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/client/tournament/getTournamentByTournamentId/673dd3b77147a381671f2a49`
+        `http://localhost:3000/client/tournament/getTournamentByTournamentId/${tournamentId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -173,6 +173,7 @@ const Overview = () => {
 
       {/* Public Page Button */}
       <button className="public-page-button">Public page</button>
+      <button className="delete-page-button">Delete This Tournament</button>
     </div>
   );
 };

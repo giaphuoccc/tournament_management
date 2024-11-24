@@ -189,6 +189,18 @@
   margin-top: 20px;
   align-self: flex-end;
 }
+
+.delete-page-button {
+  background-color: #ff0000;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  align-self: flex-end;
+}
+
 .structure-details {
   color: #666;
 }

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/OverviewPage.css";
+import axios from "axios";
 
 const Overview = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [tournamentData, setTournamentData] = useState([]);
   const { tournamentId } = location.state || {};
+  const [showModal, setShowModal] = useState(false);
+  const [confirmationText, setConfirmationText] = useState("");
   // const { tournamentId } = "673dd3b77147a381671f2a49";
 
   const fetchTournamentData = async () => {
@@ -32,7 +36,27 @@ const Overview = () => {
     fetchTournamentData();
   }, []);
 
-  console.log("Logg", tournamentData);
+  const handleDelete = async () => {
+    if (confirmationText !== tournamentData.name) {
+      alert("The entered tournament name does not match.");
+      return;
+    }
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/client/tournament/deleteTournamentById/${tournamentId}`
+      );
+
+      // Check the response status directly (optional, since Axios throws for errors)
+      if (response.status === 200) {
+        alert("Tournament deleted successfully!");
+        navigate("/organizer"); // Redirect to home or any other page after deletion
+      }
+    } catch (error) {
+      console.error("Error deleting tournament:", error);
+      alert("Failed to delete tournament");
+    }
+  };
 
   return (
     <div className="overview-page">
@@ -173,7 +197,32 @@ const Overview = () => {
 
       {/* Public Page Button */}
       <button className="public-page-button">Public page</button>
-      <button className="delete-page-button">Delete This Tournament</button>
+      <button className="delete-page-button" onClick={() => setShowModal(true)}>
+        Delete This Tournament
+      </button>
+
+      {/* Delete Confirmation Modal */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Delete Tournament</h2>
+            <p>
+              Please type the name of the tournament (
+              <strong>{tournamentData.name}</strong>) to confirm deletion:
+            </p>
+            <input
+              type="text"
+              value={confirmationText}
+              onChange={(e) => setConfirmationText(e.target.value)}
+              placeholder="Enter tournament name"
+            />
+            <div className="modal-actions">
+              <button onClick={() => setShowModal(false)}>Cancel</button>
+              <button onClick={handleDelete}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

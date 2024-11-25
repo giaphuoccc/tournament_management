@@ -340,13 +340,11 @@ const CreateTournament = () => {
                 </li>
                 <li>
                   <strong>Discipline:</strong>{" "}
-                  {/* {selectedGame ? selectedGame.name : "No discipline selected"} */}
+                  {gameData.find((game) => game._id === formData.gameId)
+                    ?.name || "Discipline not selected"}
                 </li>
                 <li>
                   <strong>Participants:</strong> {formData.tournamentSize}
-                </li>
-                <li>
-                  <strong>Timezone:</strong> {formData.timezone}
                 </li>
                 <li>
                   <strong>Start Date:</strong> {formData.timeStarted}

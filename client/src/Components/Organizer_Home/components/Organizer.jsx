@@ -10,7 +10,7 @@ import "../styles/organizer.css";
 export default function Organizer() {
   return (
     <div className="app">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <CreateTournament />
     </div>
   );
@@ -19,7 +19,7 @@ export default function Organizer() {
 export function OrganizerOverview() {
   return (
     <div className="app">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Overview />
     </div>
   );
@@ -28,7 +28,7 @@ export function OrganizerOverview() {
 export function OrganizerID() {
   return (
     <div className="app">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Organizer_id />
     </div>
   );

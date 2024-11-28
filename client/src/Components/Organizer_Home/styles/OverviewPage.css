@@ -197,7 +197,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
+  margin: 20px 0 20px 0px;
   align-self: flex-end;
 }
 
@@ -219,7 +219,11 @@
   font-size: 15px;
   font-weight: bold;
 }
-.nameGame {
+.main-card .smallTitle {
+  color: #007bff;
+  font-weight: bold;
+}
+.contentInformation .nameGame {
   font-size: 10px;
 }
 
@@ -228,6 +232,19 @@
 }
 .contentOrganizer {
   margin-top: 10px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical;
 }
 
 /*Modal CSS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

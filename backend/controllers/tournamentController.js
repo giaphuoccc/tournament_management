@@ -143,3 +143,31 @@ export const deleteTournamentById = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// update
+export const updateTournamentById = async (req, res) => {
+  const { tournamentId } = req.params; // Lấy ID giải đấu từ tham số URL
+  const updatedData = req.body; // Dữ liệu cập nhật từ client
+
+  console.log("Tournament ID:", tournamentId); // Log tournamentId
+  console.log("Updated Data from Client:", updatedData); // Log dữ liệu nhận được
+
+  try {
+    const updatedTournament = await Tournaments.findByIdAndUpdate(
+      tournamentId,
+      updatedData,
+      { new: true, runValidators: true }
+    );
+
+    console.log("Updated Tournament:", updatedTournament); // Log kết quả cập nhật
+
+    if (!updatedTournament) {
+      return res.status(404).json({ message: "Tournament not found" });
+    }
+
+    res.status(200).json(updatedTournament);
+  } catch (error) {
+    console.error("Error updating tournament:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

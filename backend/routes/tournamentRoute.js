@@ -12,11 +12,10 @@ import {
 //lay danh sach giai dau
 router.get("/getAllTournaments", getAllTournaments);
 router.get("/getTournamentByGameId/:gameId", getTournamentByGameId);
+router.get("/getTournamentByTournamentId/:tournamentId", getTournamentByTournamentId);
+
 router.post("/createTournament", createTournament);
-router.get(
-  "/getTournamentByTournamentId/:tournamentId",
-  getTournamentByTournamentId
-);
+
 router.delete("/deleteTournamentById/:id", deleteTournamentById);
 
 export default router;

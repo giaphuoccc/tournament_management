@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TournamentInfo from "./components/TounamentInfo";
 import MenuView from "./components/MenuView";
+import MatchesSchedule from "./components/matchesSchedule";
 import TournamentSidebar from "./components/TournamentSidebar";
 import TourDescription from "./components/TourDescription";
 import styles from "./styles/TournamentView.module.css";
@@ -10,6 +11,11 @@ function TournamentView_Information() {
   const [dataPhuoc, setDataPhuoc] = useState(null); 
   const [activeTab, setActiveTab] = useState("information"); 
   const { tournamentId } = useParams();
+
+    // Kiểm tra giá trị của tournamentId từ URL
+  useEffect(() => {
+    console.log("TournamentView_Information - tournamentId:", tournamentId);
+  }, [tournamentId]);
 
   const fetchGameData = async () => {
     try {
@@ -69,12 +75,9 @@ function TournamentView_Information() {
               </aside>
             </>
           )}
-          {activeTab === "matches" && (
-            <div className={styles.tabContent}>
-              <h3 className={styles.tabTitle}>Matches Content</h3>
-              <p className={styles.tabText}>This is the matches tab content.</p>
-            </div>
-          )}
+
+          {activeTab === "matches" && <MatchesSchedule tournamentId={tournamentId} />}
+
           {activeTab === "participants" && (
             <div className={styles.tabContent}>
               <h3 className={styles.tabTitle}>Participants Content</h3>

@@ -49,22 +49,14 @@ const tournamentSchema = new mongoose.Schema(
     prize: {
       type: Number,
     },
-    //   secondPlace: {
-    //     type: Number,
-    //     required: true,
-    //   },
-    //   thirdPlace: {
-    //     type: Number,
-    //   },
-    // },
-    // schedule: [
-    //   {
-    //     matchName: { type: String, required: true }, // e.g., "Quarterfinals", "Finals"
-    //     teams: [String], // Array of team names/IDs
-    //     matchTime: { type: Date, required: true },
-    //     matchLocation: { type: String, required: true },
-    //   },
-    // ],
+    teams: [
+      { type: mongoose.Schema.Types.ObjectId, 
+        ref: "TeamList" }
+    ],
+    matches: [
+      { type: mongoose.Schema.Types.ObjectId, 
+        ref: 'MatchList' }
+    ]
   },
   {
     timestamps: true, // Tự động thêm 'createdAt' và 'updatedAt'

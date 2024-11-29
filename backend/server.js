@@ -6,6 +6,8 @@ import { connectDB } from "./config/db.js";
 
 import tournamentRoute from "./routes/tournamentRoute.js";
 import gameListRoute from "./routes/gameListRoute.js";
+import matchesRoute from "./routes/matchesRoutes.js";
+import scheduleRoute from "./routes/scheduleRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +22,8 @@ connectDB();
 //Routes
 app.use("/client/tournament", tournamentRoute);
 app.use("/client/game", gameListRoute);
+app.use("/client/matches", matchesRoute);
+app.use("/client/schedule", scheduleRoute);
 
 const PORT = process.env.PORT || 5000; // Lấy cổng từ biến môi trường hoặc mặc định là 5000
 app.listen(PORT, () => {

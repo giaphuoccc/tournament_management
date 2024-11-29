@@ -1,50 +1,73 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/CreateTournament.css";
-import axios from "axios";
 
-export default function Organizer_id() {
-  const id = "67403ad1d720d2d590d3494e";
-  const [formData, setFormData] = useState({
-    tournamentId: "",
-  });
+export default function OrganizerId() {
+  const [tournamentId, setTournamentId] = useState("");
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
-  const deleteTournament = async () => {
+  const fetchAllTournament = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/client/tournament/deleteTournamentById/6740392dd720d2d590d34949`
+      const response = await fetch(
+        `http://localhost:3000/client/tournament/getAllTournaments`
       );
-      console.log(response.data.message); // Log success message
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      // Update state to remove the deleted tournament
-      // setTournaments(tournaments.filter((tournament) => tournament._id !== id));
+      const data = await response.json();
+      setData(data);
+
+      // Log the fetched data for debugging
+      console.log("Fetched tournament data:", data);
     } catch (error) {
-      console.error("Error deleting tournament:", error);
-      alert("Failed to delete tournament");
+      console.error("Error fetching tournament data", error);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const handleSubmit = () => {
+    // Check if the input ID matches any tournament in the data
+    const matchedTournament = data.find(
+      (tournament) => tournament._id === tournamentId
+    );
+
+    // If no match, show an alert and stop execution
+    if (!matchedTournament) {
+      alert("The entered tournament ID does not match.");
+      return;
+    }
+
+    // Check if tournamentId is valid (non-empty)
+    if (!tournamentId.trim()) {
+      alert("Please enter a valid ID.");
+      return;
+    }
+
+    // Navigate to the overview page with the tournament ID
+    navigate("/overview-tournament", { state: { tournamentId } });
   };
+
+  useEffect(() => {
+    fetchAllTournament();
+  }, []);
 
   return (
     <div className="create-tournament">
       <h1>Enter Your Tournament ID</h1>
-
       <div className="form-container">
-        {/* <h2>Step 1: Basic Info</h2> */}
-        <label>Organizer Name (maximum 30 characters)</label>
+        <label>Tournament ID </label>
         <input
           type="text"
-          name="tournamentId"
           maxLength={30}
-          value={formData.tournamentId}
-          onChange={handleChange}
+          value={tournamentId}
+          onChange={(e) => setTournamentId(e.target.value)}
+          placeholder="Enter tournament ID"
         />
+        <button className="create-button" onClick={handleSubmit}>
+          Submit
+        </button>
       </div>
-
-      <button onClick={deleteTournament}>Delete</button>
     </div>
   );
 }

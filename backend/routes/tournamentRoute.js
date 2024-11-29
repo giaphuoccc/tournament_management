@@ -7,6 +7,7 @@ import {
   getTournamentByGameId,
   getTournamentByTournamentId,
   deleteTournamentById,
+  updateTournamentById,
 } from "../controllers/tournamentController.js";
 
 //lay danh sach giai dau
@@ -18,4 +19,15 @@ router.post("/createTournament", createTournament);
 
 router.delete("/deleteTournamentById/:id", deleteTournamentById);
 
+//update
+router.put(
+  "/updateTournamentById/:tournamentId",
+  (req, res, next) => {
+    console.log("Route hit: /updateTournamentById");
+    console.log("Tournament ID:", req.params.tournamentId);
+    console.log("Request Body:", req.body);
+    next();
+  },
+  updateTournamentById
+);
 export default router;

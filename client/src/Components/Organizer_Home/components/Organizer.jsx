@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import Create_Tournament from "./Create_Tournament";
+// import Create_Tournament from "./Create_Tournament";
+import CreateTournament from "./Create_Tournament";
 import Overview from "./Overview";
 import Organizer_id from "./Organizer_id";
 
@@ -9,8 +10,8 @@ import "../styles/organizer.css";
 export default function Organizer() {
   return (
     <div className="app">
-      <Sidebar />
-      <Create_Tournament />
+      {/* <Sidebar /> */}
+      <CreateTournament />
     </div>
   );
 }
@@ -18,7 +19,7 @@ export default function Organizer() {
 export function OrganizerOverview() {
   return (
     <div className="app">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Overview />
     </div>
   );
@@ -27,7 +28,7 @@ export function OrganizerOverview() {
 export function OrganizerID() {
   return (
     <div className="app">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Organizer_id />
     </div>
   );

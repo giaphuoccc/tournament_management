@@ -1,141 +1,252 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/OverviewPage.css";
+import axios from "axios";
+import locationData from "../data/LocationData"; // Import dữ liệu Location
 
 const Overview = () => {
-  const location = useLocation();
+  const navigate = useNavigate();
   const [tournamentData, setTournamentData] = useState([]);
-  // const { tournamentId } = location.state || {};
-  const { tournamentId } = "673dd3b77147a381671f2a49";
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedData, setEditedData] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [confirmationText, setConfirmationText] = useState("");
+  //const { tournamentId } = location.state || {}; // Nhận tournamentId từ state
+  const tournamentId = "673dd3b77147a381671f2a49"; // ID giải đấu
+
+  const countries = ["All", ...locationData.map((loc) => loc.name)];
 
   const fetchTournamentData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/client/tournament/getTournamentByTournamentId/673dd3b77147a381671f2a49`
+        `http://localhost:3000/client/tournament/getTournamentByTournamentId/${tournamentId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const data = await response.json();
       setTournamentData(data);
+      setEditedData(data); // Khởi tạo dữ liệu chỉnh sửa
     } catch (error) {
       console.error("Error fetching game data:", error);
     }
   };
 
   useEffect(() => {
-    // if (tournamentId) {
-    //   console.log("Received Tournament ID:", tournamentId);
-    //   // Fetch the tournament details using the ID
-    // }
-    fetchTournamentData();
-  }, []);
+    if (tournamentId) {
+      fetchTournamentData();
+    }
+  }, [tournamentId]);
 
-  console.log("Logg", tournamentData);
+  const handleEditToggle = () => setIsEditing(!isEditing);
+
+  const handleInputChange = (key, value) => {
+    setEditedData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/client/tournament/updateTournamentById/${tournamentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editedData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const updatedTournament = await response.json();
+      setTournamentData(updatedTournament);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating tournament:", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (confirmationText !== tournamentData.name) {
+      alert("The entered tournament name does not match.");
+      return;
+    }
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/client/tournament/deleteTournamentById/${tournamentId}`
+      );
+
+      if (response.status === 200) {
+        alert("Tournament deleted successfully!");
+        navigate("/organizer");
+      }
+    } catch (error) {
+      console.error("Error deleting tournament:", error);
+      alert("Failed to delete tournament");
+    }
+  };
 
   return (
     <div className="overview-page">
       <h1>Overview</h1>
+
+      <button
+        className="public-page-button"
+        onClick={isEditing ? handleSave : handleEditToggle}
+      >
+        {isEditing ? "Save" : "Update"}
+      </button>
+      <button className="delete-page-button" onClick={() => setShowModal(true)}>
+        Delete This Tournament
+      </button>
+
       <div className="overview-container">
-        {/* Main Card */}
-        {/* <div className="main-card">
-          <div className="header">
-            <h2>test</h2>
-            <p>League Of Legends</p>
-            <button className="draft-button">Draft</button>
-          </div>
-          <div className="status-tabs">
-            <span className="status active">SETUP</span>
-            <span className="status">PENDING</span>
-            <span className="status">RUNNING</span>
-          </div>
-          <p className="status-message">
-            You should wait for participants to register and then choose to
-            accept or refuse them.
-          </p>
-        </div> */}
-
+        {/* Information Card */}
         <div className="main-card">
-          <div className="header">
-            <h2>{tournamentData ? tournamentData.name : "Tournament Name"}</h2>
-            <p>
-              {tournamentData && tournamentData.game
-                ? tournamentData.game.name
-                : "Game Name"}
+          <h2>Information</h2>
+          <div className="contentInformation">
+            <p className="smallTitle">Name Tournament:</p>
+            {isEditing ? (
+              <input
+                type="text"
+                value={editedData.name || ""}
+                onChange={(e) => handleInputChange("name", e.target.value)}
+              />
+            ) : (
+              <p>{tournamentData.name || "Tournament Name"}</p>
+            )}
+            <p className="nameGame">
+              {tournamentData.game?.name || "Game Name"}
             </p>
-            <button className="draft-button">Draft</button>
           </div>
-          <div className="status-tabs">
-            <span className="status active">SETUP</span>
-            <span className="status">PENDING</span>
-            <span className="status">RUNNING</span>
+          <div>
+            <p className="smallTitle">Organizer:</p>
+            {isEditing ? (
+              <input
+                type="text"
+                value={editedData.organizer || ""}
+                onChange={(e) => handleInputChange("organizer", e.target.value)}
+              />
+            ) : (
+              <p>{tournamentData.organizer || "Organizer Name"}</p>
+            )}
           </div>
-          <p className="status-message">
-            You should wait for participants to register and then choose to
-            accept or refuse them.
+        </div>
+
+        {/* Location & Time Card */}
+        <div className="main-card">
+          <h2>Location</h2>
+          {isEditing ? (
+            <select
+              value={editedData.location || ""}
+              onChange={(e) => handleInputChange("location", e.target.value)}
+            >
+              <option value="" disabled>
+                Select a country
+              </option>
+              {countries.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p>{tournamentData.location || "Location Name"}</p>
+          )}
+          <h2>Time</h2>
+          <p>
+            Start:{" "}
+            {isEditing ? (
+              <input
+                type="datetime-local"
+                value={
+                  editedData.timeStarted
+                    ? new Date(editedData.timeStarted)
+                        .toISOString()
+                        .slice(0, 16)
+                    : ""
+                }
+                onChange={(e) =>
+                  handleInputChange("timeStarted", e.target.value)
+                }
+              />
+            ) : (
+              new Date(tournamentData.timeStarted).toLocaleDateString("en-GB")
+            )}
+          </p>
+          <p>
+            End:{" "}
+            {isEditing ? (
+              <input
+                type="datetime-local"
+                value={
+                  editedData.timeEnded
+                    ? new Date(editedData.timeEnded).toISOString().slice(0, 16)
+                    : ""
+                }
+                onChange={(e) => handleInputChange("timeEnded", e.target.value)}
+              />
+            ) : (
+              new Date(tournamentData.timeEnded).toLocaleDateString("en-GB")
+            )}
           </p>
         </div>
 
-        {/* Participants Card */}
-        <div className="card participants-card">
-          <div className="card-header">
-            <h3>Participants</h3>
-            <a href="#" className="add-link">
-              + Add
-            </a>
-          </div>
-          <div className="card-content">
-            <p className="count">
-              0 <span>Participants</span>
-            </p>
-            <p className="count">
-              2 <span>Tournament size</span>
-            </p>
-          </div>
-          <a href="#" className="configure-checkin">
-            Configure check-in
-          </a>
+        {/* Rules Card */}
+        <div className="main-card">
+          <h2>Rules</h2>
+          {isEditing ? (
+            <textarea
+              value={editedData.rules || ""}
+              onChange={(e) => handleInputChange("rules", e.target.value)}
+            />
+          ) : (
+            <p>{tournamentData.rules || "Rules"}</p>
+          )}
         </div>
 
-        {/* Structure Card */}
-        <div className="card structure-card">
-          <div className="card-header">
-            <h3>Structure</h3>
-            <a href="#" className="create-stage-link">
-              + Create new stage
-            </a>
-          </div>
-          <p>1. Bracket groups</p>
-          <p className="structure-details">0/3 players Pending</p>
-          <a href="#" className="view-stages-link">
-            View all stages
-          </a>
-        </div>
-
-        {/* Registrations Card */}
-        <div className="card registrations-card">
-          <h3>Registrations</h3>
-          <div className="registration-status">
-            <span>
-              0 <span className="status-text">Pending</span>
-            </span>
-            <span>
-              0 <span className="status-text accepted">Accepted</span>
-            </span>
-            <span>
-              0 <span className="status-text refused">Refused</span>
-            </span>
-            <span>
-              0 <span className="status-text cancelled">Cancelled</span>
-            </span>
-          </div>
-          <p className="no-registrations">No pending registrations</p>
+        {/* Description Card */}
+        <div className="main-card">
+          <h2>Description</h2>
+          {isEditing ? (
+            <textarea
+              value={editedData.description || ""}
+              onChange={(e) => handleInputChange("description", e.target.value)}
+            />
+          ) : (
+            <p>{tournamentData.description || "Description"}</p>
+          )}
         </div>
       </div>
 
-      {/* Public Page Button */}
-      <button className="public-page-button">Public page</button>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Delete Tournament</h2>
+            <p>
+              Please type the name of the tournament (
+              <strong>{tournamentData.name}</strong>) to confirm deletion:
+            </p>
+            <input
+              type="text"
+              value={confirmationText}
+              onChange={(e) => setConfirmationText(e.target.value)}
+              placeholder="Enter tournament name"
+            />
+            <div>
+              <button onClick={() => setShowModal(false)}>Cancel</button>
+              <button onClick={handleDelete}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

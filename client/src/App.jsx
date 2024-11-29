@@ -1,4 +1,4 @@
-//import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import styles from "./Components/Home/styles/homePage.module.css";
@@ -12,6 +12,7 @@ import Organizer from "./Components/Organizer_Home/components/Organizer";
 import { OrganizerOverview } from "./Components/Organizer_Home/components/Organizer";
 import { OrganizerID } from "./Components/Organizer_Home/components/Organizer";
 import TournamentView_Information from "./Components/ViewTournament_Information/TournamentView_Information";
+//import Overview from "./Components/Organizer_Home/components/Overview";
 const App = () => {
   return (
     <Router>

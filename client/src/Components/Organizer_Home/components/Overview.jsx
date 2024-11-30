@@ -5,14 +5,15 @@ import axios from "axios";
 import locationData from "../data/LocationData"; // Import dữ liệu Location
 
 const Overview = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [tournamentData, setTournamentData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [confirmationText, setConfirmationText] = useState("");
-  //const { tournamentId } = location.state || {}; // Nhận tournamentId từ state
-  const tournamentId = "673dd3b77147a381671f2a49"; // ID giải đấu
+  const { tournamentId } = location.state || {}; // Nhận tournamentId từ state
+  // const tournamentId = "673dd3b77147a381671f2a49"; // ID giải đấu
 
   const countries = ["All", ...locationData.map((loc) => loc.name)];
 
@@ -240,9 +241,9 @@ const Overview = () => {
               onChange={(e) => setConfirmationText(e.target.value)}
               placeholder="Enter tournament name"
             />
-            <div>
+            <div className="modal-actions">
               <button onClick={() => setShowModal(false)}>Cancel</button>
-              <button onClick={handleDelete}>Confirm</button>
+              <button onClick={handleDelete}>Delete</button>
             </div>
           </div>
         </div>

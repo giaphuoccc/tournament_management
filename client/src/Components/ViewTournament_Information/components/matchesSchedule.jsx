@@ -117,7 +117,6 @@ const MatchesSchedule = ({ tournamentId }) => {
     final: [],
   });
 
-  // Fetch data from API when the component mounts
   useEffect(() => {
     const fetchMatches = async () => {
       if (!tournamentId) {
@@ -125,8 +124,8 @@ const MatchesSchedule = ({ tournamentId }) => {
         return;
       }
 
-      setLoading(true); // Reset loading state when tournamentId changes
-      setMatches([]); // Reset matches state to avoid showing stale data
+      setLoading(true); // reset lại trạng thái khi có id mới
+      setMatches([]); // reset lại danh sách trận
 
       try {
         console.log(`Fetching matches for tournamentId: ${tournamentId}`);
@@ -146,12 +145,12 @@ const MatchesSchedule = ({ tournamentId }) => {
       } catch (error) {
         console.error('Error fetching matches:', error);
       } finally {
-        setLoading(false); // Stop loading once data is fetched
+        setLoading(false);
       }
     };
 
     fetchMatches();
-  }, [tournamentId]); // Runs whenever tournamentId changes
+  }, [tournamentId]);
 
   // Render loading state
   if (loading) {

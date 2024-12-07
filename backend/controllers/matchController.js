@@ -85,7 +85,7 @@ export const getMatches = async (req, res) => {
                   matchNumber: matchData.matchNumber,
                   teamA: matchData.teamA,
                   teamB: matchData.teamB,
-                  matchDate: new Date(), // Thêm logic chọn ngày cụ thể nếu cần
+                  matchDate: new Date(),
                   status: 'scheduled',
                 })
               )

@@ -1,4 +1,4 @@
-import Team from '../models/teamModel.js';
+import TeamList from '../models/teamModel.js';
 
 export const getTeams = async (req, res) => {
   try {
@@ -12,7 +12,7 @@ export const getTeams = async (req, res) => {
 export const addTeam = async (req, res) => {
   const { name, logo, captain, players } = req.body;
   try {
-    const team = new Team({ name, logo, captain, players });
+    const team = new TeamList({ name, logo, captain, players });
     await team.save();
     res.status(201).json(team);
   } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/CreateTournament.css";
 
 export default function OrganizerId() {
@@ -67,6 +67,9 @@ export default function OrganizerId() {
         <button className="create-button" onClick={handleSubmit}>
           Submit
         </button>
+        <Link to="/create-tournament">
+          <button className="next-button">Create New Tournament</button>
+        </Link>
       </div>
     </div>
   );

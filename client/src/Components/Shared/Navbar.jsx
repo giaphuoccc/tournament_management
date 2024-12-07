@@ -42,7 +42,9 @@ const Navbar = () => {
               </button>
             </div>
           </form>
-          <button className={styles.signInButton}>Sign In</button>
+          <Link to="/organizer" className={styles.navLink}>
+            <button className={styles.signInButton}>Organizer</button>
+          </Link>
         </div>
       </div>
     </header>

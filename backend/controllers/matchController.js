@@ -109,11 +109,10 @@ export const getMatches = async (req, res) => {
   
         // Kiểm tra danh sách đội thắng đã được xác định đầy đủ
         if (winnersRound2.length === 2 && winnersRound2.every((team) => team)) {
-          // Nếu chưa tạo trận chung kết thì tạo
           if (!allMatches.some((m) => m.matchNumber === 7)) {
             await MatchList.create({
               tournamentID: match.tournamentID,
-              matchNumber: 7, // Số trận chung kết
+              matchNumber: 7,
               teamA: winnersRound2[0],
               teamB: winnersRound2[1],
               matchDate: new Date(),
